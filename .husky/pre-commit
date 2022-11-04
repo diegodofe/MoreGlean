@@ -1,0 +1,46 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# bash echo color
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+BLUE='\033[1;36m'
+BOLD='\033[1;37m'
+NC='\033[0m'
+
+npx -p prettier@latest -p pretty-quick pretty-quick
+
+echo "\n 🚧🏗️  ${BOLD}Checking format, lint and types in your project before committing${NC}"
+
+# Check Prettier standards
+npm run check-format ||
+(
+    echo "\n ❌🟨 Prettier Check ${RED}Failed${NC}. 🟨❌\n Run ${BLUE}npm run format${NC}, add changes and try commit again.\n";
+    false;
+)
+
+# Check ESLint Standards
+npm run check-lint ||
+(
+    echo "\n ❌🟪 ESLint Check ${RED}Failed${NC}. 🟪❌\n Make the required changes listed above, add changes and try to commit again.\n"
+    false;
+)
+
+# Check tsconfig standards
+npm run check-types ||
+(
+    echo "\n ❌🟦 Type check ${RED}Failed${NC}. 🟦❌\n Make the changes required above.\n"
+    false;
+)
+
+# If everything passes... Now we can build
+echo "🔥🚀 ${BOLD}All passed... Now we can build.${NC} 🚀🔥"
+
+npm run build ||
+(
+    echo "\n ❌🟩 Next build ${RED}Failed${NC}. 🟩❌\n View the errors above to see why.\n"
+    false;
+)
+
+# If everything passes... Now we can commit
+echo "✅✅ ${GREEN}Build is completed... I am committing this now.${NC} ✅✅\n"
