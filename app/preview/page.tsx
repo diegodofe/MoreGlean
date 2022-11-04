@@ -1,20 +1,21 @@
-import CatThumbnail from '../../components/CatThumbnail'
-import { CRASH_DOC_ID } from '../../constants/cats'
-import { getCatById } from '../../services/cats'
+import UserThumbnail from '../../components/UserThumbnail'
+import { RONALDO_DOC_ID } from '../../constants/users'
+import { getUserById } from '../../services/users'
 
-async function getPreviewCat() {
-  const welcomeCat = await getCatById(CRASH_DOC_ID)
+async function getPreviewUser() {
+  const welcomeUser = await getUserById(RONALDO_DOC_ID)
 
-  return welcomeCat
+  return welcomeUser
 }
-export default async function Preview() {
-  const welcomeCat = await getPreviewCat()
 
-  if (!welcomeCat) return <p>Oops, the cat got away...</p>
+export default async function Preview() {
+  const welcomeUser = await getPreviewUser()
+
+  if (!welcomeUser) return <p>Oops, the person got away...</p>
 
   return (
     <div>
-      <CatThumbnail cat={welcomeCat} />
+      <UserThumbnail user={welcomeUser} />
     </div>
   )
 }
