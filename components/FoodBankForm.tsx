@@ -1,4 +1,4 @@
-import { DatePicker, Form, Input } from 'antd'
+import { Button, Checkbox, DatePicker, Form, Input } from 'antd'
 
 const { RangePicker } = DatePicker
 
@@ -100,6 +100,32 @@ export default function FoodBankForm() {
           ]}
         >
           <RangePicker />
+        </Form.Item>
+        <Form.Item
+          name='agreement'
+          valuePropName='checked'
+          rules={[
+            {
+              validator: (_, value) =>
+                value
+                  ? Promise.resolve()
+                  : Promise.reject(new Error('Should accept agreement')),
+            },
+          ]}
+          wrapperCol={{
+            xs: { span: 24, offset: 0 },
+            sm: { span: 16, offset: 0 },
+          }}
+        >
+          <Checkbox>
+            By clicking on sign-up, you agree to MoreGlean’s Terms and
+            Conditions of Use.
+          </Checkbox>
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type='primary' htmlType='submit'>
+            Submit
+          </Button>
         </Form.Item>
       </div>
     </Form>
