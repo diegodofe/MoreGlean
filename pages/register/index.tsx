@@ -1,5 +1,5 @@
 import FoodBankForm from '../../components/FoodBankForm'
 
-export default function foodbank() {
+export default function Register() {
   return <FoodBankForm />
 }

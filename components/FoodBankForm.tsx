@@ -1,22 +1,20 @@
 import { DatePicker, Form, Input } from 'antd'
-/* eslint-disable react/jsx-props-no-spreading */
 
 const { RangePicker } = DatePicker
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 40 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 30 },
-  },
-}
-
 export default function FoodBankForm() {
   return (
-    <Form {...formItemLayout} layout='vertical'>
+    <Form
+      labelCol={{
+        xs: { span: 24 },
+        sm: { span: 40 },
+      }}
+      wrapperCol={{
+        xs: { span: 24 },
+        sm: { span: 30 },
+      }}
+      layout='vertical'
+    >
       <div>
         <h1>Register as a food Bank!</h1>
 
