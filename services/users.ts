@@ -1,6 +1,6 @@
 import { doc, getDoc } from 'firebase/firestore'
 import db from '../firebase'
-import { User } from '../types/User'
+import User from '../types/User'
 
 export async function getAllUsers() {
   console.log('here are the users')

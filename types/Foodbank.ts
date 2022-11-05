@@ -1,6 +1,6 @@
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 
-export interface Foodbank {
+export default interface Foodbank {
   id: string
   name: string
   email: string
