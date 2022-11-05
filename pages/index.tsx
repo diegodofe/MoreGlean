@@ -47,6 +47,10 @@ export default function Home() {
         <Link href='/create'>
           <Button type='link'>Create Data</Button>
         </Link>
+
+        <Link href='/events'>
+          <Button type='link'>View events</Button>
+        </Link>
       </div>
     </>
   )
