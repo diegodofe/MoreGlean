@@ -10,3 +10,5 @@ export enum UserRole {
   GLEANER = 'gleaner',
   FARMER = 'farmer',
 }
+
+export type UserData = Omit<User, 'id'>
