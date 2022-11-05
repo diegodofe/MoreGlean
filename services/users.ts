@@ -1,9 +1,9 @@
 import { doc, getDoc } from 'firebase/firestore'
 import db from '../firebase'
-import User from '../types/User'
+import User from '../types/user'
 
 export async function getAllUsers() {
-  console.log('here are the users')
+  return []
 }
 
 export async function getUserById(userId: string) {

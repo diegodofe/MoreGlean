@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import UserThumbnail from '../components/UserThumbnail'
 import { RONALDO_DOC_ID } from '../constants/users'
 import { getUserById } from '../services/users'
-import User from '../types/User'
+import User from '../types/user'
 
 export async function getServerSideProps() {
   const welcomeUser = await getUserById(RONALDO_DOC_ID)
