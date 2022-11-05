@@ -1,5 +1,5 @@
 import UserThumbnail from '../../components/UserThumbnail'
-import { RONALDO_DOC_ID } from '../../constants/users'
+import { RONALDO_DOC_ID } from '../../constants/Users'
 import { getUserById } from '../../services/users'
 
 async function getPreviewUser() {

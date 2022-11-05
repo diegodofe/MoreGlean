@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function Page() {
+export default function Landing() {
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
