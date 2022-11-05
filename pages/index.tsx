@@ -1,5 +1,6 @@
 import { Button } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
 import UserThumbnail from '../components/UserThumbnail'
 import { RONALDO_DOC_ID } from '../constants/users'
 import { getUserById } from '../services/users'
@@ -30,6 +31,7 @@ export default function Home({ welcomeUser }: { welcomeUser: User }) {
         </h1>
 
         <Button type='primary'>hello</Button>
+        <Link href='/signup'>Sign Up Here!</Link>
         <UserThumbnail user={welcomeUser} />
       </motion.div>
     </AnimatePresence>
