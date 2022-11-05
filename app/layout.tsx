@@ -16,7 +16,7 @@ export default function RootLayout({
           name='description'
           content='Scaffold a starter project using create-crash-app'
         />
-        <title>MoreGlean Stanley</title>
+        <title>MoreGlean</title>
       </head>
       <body>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
