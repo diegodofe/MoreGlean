@@ -47,6 +47,10 @@ export default function Home() {
         <Link href='/create'>
           <Button type='link'>Create Data</Button>
         </Link>
+
+        <Link href='/register'>
+          <Button type='link'>Register a Foodbank</Button>
+        </Link>
       </div>
     </>
   )
