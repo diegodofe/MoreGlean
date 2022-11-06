@@ -1,6 +1,6 @@
 import UserThumbnail from '../../components/UserThumbnail'
 import { getAllUsers } from '../../services/users'
-import User from '../../types/user'
+import User from '../../types/users'
 
 export async function getServerSideProps() {
   const users = await getAllUsers()

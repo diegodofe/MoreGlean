@@ -9,3 +9,5 @@ export default interface Event {
   location: GeoPoint
   groupId: string | undefined
 }
+
+export type EventData = Omit<Event, 'id'>

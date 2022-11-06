@@ -50,8 +50,8 @@ export default function Home() {
 
         <Link href='/signup'>
           <Button type='link'>Sign up</Button>
-         </Link>
-          
+        </Link>
+
         <Link href='/register'>
           <Button type='link'>Register as a Food Bank</Button>
         </Link>
