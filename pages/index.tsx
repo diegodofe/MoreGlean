@@ -19,6 +19,7 @@ export default function Home() {
 
     router.push('/events')
   }
+
   useEffect(() => {
     console.log('Current user', user)
   }, [user])
