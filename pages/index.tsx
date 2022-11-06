@@ -27,9 +27,6 @@ export default function Home() {
           <Link href='/users'>
             <Button appearance='link'>View all users</Button>
           </Link>
-          <Link href='/createEvent'>
-            <Button appearance='link'>Create Event</Button>
-          </Link>
         </Pane>
       </Pane>
     </>
