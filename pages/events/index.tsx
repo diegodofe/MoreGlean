@@ -1,7 +1,6 @@
 import { Button, Pane } from 'evergreen-ui'
 import { signOut } from 'firebase/auth'
 import router from 'next/router'
-import { useEffect } from 'react'
 import { auth } from '../../firebase'
 
 export default function EventsPage() {
@@ -16,23 +15,6 @@ export default function EventsPage() {
         console.log(error)
       })
   }
-
-  const authStateChangedHandler = async (authState: any) => {
-    if (!authState) {
-      console.log('User is not logged in')
-      // redirect the user to sign up page
-      router.push('/')
-    } else {
-      console.log('Welcome back')
-    }
-  }
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(authStateChangedHandler)
-
-    return () => {
-      unsubscribe()
-    }
-  }, [])
 
   return (
     <Pane>
