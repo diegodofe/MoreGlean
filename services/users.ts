@@ -2,9 +2,22 @@ import { doc, getDoc } from 'firebase/firestore'
 import { getDownloadURL, ref } from 'firebase/storage'
 import db, { storage } from '../firebase'
 import User from '../types/user'
+import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import db from '../firebase'
+import User, { UserData } from '../types/users'
+
+export async function createUser(userData: UserData) {
+  await addDoc(collection(db, 'users'), userData)
+}
 
 export async function getAllUsers() {
-  return []
+  const colRef = collection(db, 'users')
+  const colSnap = await getDocs(colRef)
+
+  return colSnap.docs.map((userDoc) => {
+    const user: User = { id: userDoc.id, ...userDoc.data() } as unknown as User
+    return user
+  })
 }
 
 export async function getUserById(userId: string) {

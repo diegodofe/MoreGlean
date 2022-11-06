@@ -10,3 +10,5 @@ export default interface Group {
   members: string[]
   memberCount: number
 }
+
+export type GroupData = Omit<Group, 'id'>
