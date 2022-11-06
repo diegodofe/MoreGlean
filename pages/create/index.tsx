@@ -21,6 +21,7 @@ export default function Create() {
     const fullName = `${getRandomFirstName()} ${getRandomLastName()}`
     const userData: UserData = {
       name: fullName,
+      photo: 'https://picsum.photos/200',
       email: `${fullName}@gmail.com`,
       acceptedConditions: false,
       role: getRandomRole(),
@@ -32,10 +33,10 @@ export default function Create() {
   const handleCreateEvent = async () => {
     const eventData: EventData = {
       title: 'Event title',
-      date: new Timestamp(0, 0),
+      date: new Timestamp(2000000, 0),
       foodbankId: '',
       foodAmount: 0,
-      location: new GeoPoint(0, 0),
+      location: new GeoPoint(10, 10),
       groupId: undefined,
     }
 
@@ -55,7 +56,7 @@ export default function Create() {
 
     const groupData: GroupData = {
       name: getRandomGroupName(),
-      location: new GeoPoint(0, 0),
+      location: new GeoPoint(5, 5),
       rating: score,
       photo: 'https://picsum.photos/200',
       ownerId: allUsers[0].id,
@@ -77,11 +78,11 @@ export default function Create() {
     const foodbankData: FoodbankData = {
       name: foodbankName,
       email: `${foodbankName}@gmail.com`,
-      location: new GeoPoint(0, 1),
+      location: new GeoPoint(2, 2),
       pickupCapacity: capacity,
       maxDistance: distance,
-      startDate: new Timestamp(0, 0),
-      endDate: new Timestamp(0, 0),
+      startDate: new Timestamp(1000000, 0),
+      endDate: new Timestamp(3000000, 0),
     }
 
     await createFoodbank(foodbankData)
