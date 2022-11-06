@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import 'antd/dist/antd.css'
-import { Button, Heading, Pane } from 'evergreen-ui'
+import { Button, Heading, Pane, toaster } from 'evergreen-ui'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
@@ -28,6 +28,7 @@ function LandingPage() {
       })
       .catch((error) => {
         console.log('Error message', error)
+        toaster.danger('Error logging in')
       })
   }
 
