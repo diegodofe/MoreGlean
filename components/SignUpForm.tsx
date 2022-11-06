@@ -43,11 +43,8 @@ export default function SignUpForm() {
                 },
               ]}
             >
-              <Input />
+              <Input placeholder='Enter your Full Name' />
             </Form.Item>
-            {/* <Form.Item label='Address'>
-              <Input />
-            </Form.Item> */}
             <Form.Item
               name='email'
               label='E-mail'
@@ -62,7 +59,7 @@ export default function SignUpForm() {
                 },
               ]}
             >
-              <Input />
+              <Input placeholder='Enter your email.' />
             </Form.Item>
             <Form.Item
               name='agreement'
