@@ -13,7 +13,7 @@ export default function Navbar({ children }: { children: React.ReactElement }) {
   const navItems: NavItem[] = [
     {
       name: 'Events',
-      location: '/',
+      location: '/events',
     },
     {
       name: 'Create',
