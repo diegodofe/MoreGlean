@@ -6,7 +6,9 @@ export default function CreateAGroup() {
   const [name, setName] = React.useState('')
   const [location, setLocation] = React.useState('')
   const [checked, setChecked] = React.useState(false)
-
+  const submitHandler = () => {
+    console.log({ name, location, checked })
+  }
   return (
     <Pane alignContent='center'>
       <h1>Create a Group</h1>
@@ -36,7 +38,7 @@ export default function CreateAGroup() {
         onChange={(e) => setChecked(e.target.checked)}
       />
 
-      <Button marginRight={16} appearance='primary'>
+      <Button appearance='primary' onClick={submitHandler}>
         Submit
       </Button>
     </Pane>
