@@ -1,6 +1,6 @@
 import { GeoPoint } from 'firebase/firestore'
 
-export default interface Group {
+export interface Group {
   id: string
   name: string
   location: GeoPoint
@@ -10,3 +10,5 @@ export default interface Group {
   members: string[]
   memberCount: number
 }
+
+export type GroupData = Omit<Group, 'id'>

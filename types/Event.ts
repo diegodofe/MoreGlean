@@ -1,6 +1,6 @@
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 
-export default interface Event {
+export interface Event {
   id: string
   title: string
   date: Timestamp
@@ -9,3 +9,5 @@ export default interface Event {
   location: GeoPoint
   groupId: string | undefined
 }
+
+export type EventData = Omit<Event, 'id'>
