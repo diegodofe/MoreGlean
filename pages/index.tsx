@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button, Heading, Pane } from 'evergreen-ui'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -28,38 +28,31 @@ export default function Home() {
       <Head>
         <title>MoreGlean</title>
       </Head>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 32,
-        }}
-      >
-        <h1 style={{ fontSize: 'clamp(28px, 6vw, 46px)' }}>
-          Welcome to MoreGlean!
-        </h1>
+      <Pane display='flex' flexDirection='column' gap={16}>
+        <Heading size={700}>Welcome to MoreGlean!</Heading>
 
-        <Button type='primary' onClick={handleLogin}>
-          Sign in with Google
-        </Button>
+        <Pane display='flex' gap={8}>
+          <Button appearance='primary' onClick={handleLogin}>
+            Sign in with Google
+          </Button>
 
-        <Link href='/create'>
-          <Button type='link'>Create Data</Button>
-        </Link>
+          <Link href='/create'>
+            <Button appearance='link'>Create Data</Button>
+          </Link>
 
-        <Link href='/signup'>
-          <Button type='link'>Sign up</Button>
-        </Link>
+          <Link href='/signup'>
+            <Button appearance='link'>Sign up</Button>
+          </Link>
 
-        <Link href='/register'>
-          <Button type='link'>Register as a Food Bank</Button>
-        </Link>
+          <Link href='/register'>
+            <Button appearance='link'>Register as a Food Bank</Button>
+          </Link>
 
-        <Link href='/users'>
-          <Button type='link'>View all users</Button>
-        </Link>
-      </div>
+          <Link href='/users'>
+            <Button appearance='link'>View all users</Button>
+          </Link>
+        </Pane>
+      </Pane>
     </>
   )
 }
