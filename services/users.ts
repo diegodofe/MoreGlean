@@ -1,9 +1,6 @@
-import { doc, getDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { getDownloadURL, ref } from 'firebase/storage'
 import db, { storage } from '../firebase'
-import User from '../types/user'
-import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
-import db from '../firebase'
 import User, { UserData } from '../types/users'
 
 export async function createUser(userData: UserData) {
