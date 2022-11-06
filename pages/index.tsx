@@ -51,10 +51,6 @@ export default function Home() {
           <Link href='/users'>
             <Button appearance='link'>View all users</Button>
           </Link>
-
-          <Link href='/createGroup'>
-            <Button appearance='link'>create a new group</Button>
-          </Link>
         </Pane>
       </Pane>
     </>
