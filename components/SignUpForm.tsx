@@ -1,91 +1,64 @@
-import { Button, Checkbox, Col, Form, Input, Radio, Row } from 'antd'
+import {
+  Button,
+  Checkbox,
+  Pane,
+  RadioGroup,
+  TextInputField,
+} from 'evergreen-ui'
+import React from 'react'
 
 export default function SignUpForm() {
+  const [name, setName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [checked, setChecked] = React.useState(false)
+  const [role, setRole] = React.useState('')
+
+  const submitHandler = () => {
+    if (name === '') {
+      console.log('Write Something!')
+    }
+    console.log({ name, email, checked, role })
+  }
+
   return (
-    <div>
-      <Row>
-        <Col span={24}>
-          <Form
-            labelCol={{
-              xs: { span: 24 },
-              sm: { span: 40 },
-            }}
-            wrapperCol={{
-              xs: { span: 24 },
-              sm: { span: 30 },
-            }}
-            layout='vertical'
-          >
-            <h1>Complete Your Profile</h1>
-            <Form.Item
-              id='role'
-              name='role'
-              label='What is your role?'
-              rules={[
-                {
-                  required: true,
-                  message: 'Please choose your role!',
-                },
-              ]}
-            >
-              <Radio.Group>
-                <Radio value='farm'> Farm </Radio>
-                <Radio value='user'> User </Radio>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              name='fullname'
-              label='Full Name'
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your name!',
-                },
-              ]}
-            >
-              <Input placeholder='Enter your Full Name' />
-            </Form.Item>
-            <Form.Item
-              name='email'
-              label='E-mail'
-              rules={[
-                {
-                  type: 'email',
-                  message: 'The input is not valid E-mail!',
-                },
-                {
-                  required: true,
-                  message: 'Please input your E-mail!',
-                },
-              ]}
-            >
-              <Input placeholder='Enter your email.' />
-            </Form.Item>
-            <Form.Item
-              name='agreement'
-              valuePropName='checked'
-              rules={[
-                {
-                  validator: (_, value) =>
-                    value
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('Should accept agreement')),
-                },
-              ]}
-            >
-              <Checkbox>
-                By clicking on sign-up, you agree to MoreGlean’s Terms and
-                Conditions of Use.
-              </Checkbox>
-            </Form.Item>
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type='primary' htmlType='submit'>
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </Col>
-      </Row>
-    </div>
+    <Pane padding='2%' width='80%' height='100%'>
+      <h1>Complete Your Profile</h1>
+      <RadioGroup
+        label='Role'
+        size={16}
+        value={role}
+        options={[
+          { label: 'Farmer', value: 'farmer' },
+          { label: 'Gleaner', value: 'gleaner' },
+        ]}
+        onChange={(event) => setRole(event.target.value)}
+      />
+
+      <TextInputField
+        required
+        inputWidth='40%'
+        label='Full Name'
+        onChange={(e: any) => setName(e.target.value)}
+        value={name}
+        placeholder='Enter you full name.'
+      />
+      <TextInputField
+        required
+        inputWidth='40%'
+        label='Email'
+        onChange={(e: any) => setEmail(e.target.value)}
+        value={email}
+        placeholder='Enter your email.'
+      />
+      <Checkbox
+        label='By clicking on sign-up, you agree to MoreGlean’s Terms and
+        Conditions of Use.'
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+      />
+      <Button appearance='primary' onClick={submitHandler}>
+        Submit
+      </Button>
+    </Pane>
   )
 }
