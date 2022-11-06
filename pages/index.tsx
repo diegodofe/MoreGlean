@@ -40,7 +40,7 @@ export default function Home() {
           Welcome to MoreGlean!
         </h1>
 
-        <Button type='primary' onClick={handleLogin} disabled>
+        <Button type='primary' onClick={handleLogin}>
           Sign in with Google
         </Button>
 
