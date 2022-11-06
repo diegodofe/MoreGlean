@@ -1,7 +1,6 @@
 import { DatePicker, Form } from 'antd'
 
 import { Button, Checkbox, Pane, TextInputField } from 'evergreen-ui'
-import moment from 'moment'
 
 import React from 'react'
 
