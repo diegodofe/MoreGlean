@@ -1,4 +1,4 @@
-import { Button, Checkbox, DatePicker, Form, Input } from 'antd'
+import { Button, Checkbox, DatePicker, Form, Input, InputNumber } from 'antd'
 
 const { RangePicker } = DatePicker
 
@@ -16,7 +16,7 @@ export default function FoodBankForm() {
       layout='vertical'
     >
       <div>
-        <h1>Register as a food Bank!</h1>
+        <h1>Register as a Food Bank</h1>
 
         <Form.Item
           name='name'
@@ -82,11 +82,11 @@ export default function FoodBankForm() {
             {
               required: true,
               message:
-                'Please input the maximum distance your food bank can pick up!',
+                'Please input the maximum distance your food bank can pick up from!',
             },
           ]}
         >
-          <Input placeholder='Enter the Maximum distance.' />
+          <InputNumber min={0} max={6500} />
         </Form.Item>
 
         <Form.Item
