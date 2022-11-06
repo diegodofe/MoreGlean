@@ -131,3 +131,24 @@ export default function FoodBankForm() {
     </Form>
   )
 }
+
+/*
+import { Button, TextInput } from 'evergreen-ui'
+
+export default function FoodBankForm() {
+  return (
+    <>
+      <div>Register as a Food Bank</div>
+      <TextInput
+        required
+        name='text-input-name'
+        placeholder='Text input placeholder...'
+      />
+      <br />
+      <Button marginRight={16} appearance='primary'>
+        Submit
+      </Button>
+    </>
+  )
+}
+*/
