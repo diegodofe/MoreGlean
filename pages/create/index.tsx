@@ -11,10 +11,10 @@ import { createEvent } from '../../services/event'
 import { createFoodbank } from '../../services/foodbank'
 import { createGroup } from '../../services/group'
 import { createUser, getAllUsers } from '../../services/users'
-import { EventData } from '../../types/event'
-import { FoodbankData } from '../../types/foodbank'
-import { GroupData } from '../../types/group'
-import { UserData } from '../../types/user'
+import { EventData } from '../../types/events'
+import { FoodbankData } from '../../types/foodbanks'
+import { GroupData } from '../../types/groups'
+import { UserData } from '../../types/users'
 
 export default function Create() {
   const handleCreateUser = async () => {

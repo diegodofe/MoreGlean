@@ -1,4 +1,4 @@
-import User from '../types/user'
+import User from '../types/users'
 
 export default function UserThumbnail({ user }: { user: User }) {
   return (

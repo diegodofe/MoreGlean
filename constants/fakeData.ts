@@ -1,4 +1,4 @@
-import { UserRole } from '../types/user'
+import { UserRole } from '../types/users'
 
 const firstNames = ['James', 'Nick', 'Abby', 'Chris', 'Alexa', 'Sam', 'Donna']
 

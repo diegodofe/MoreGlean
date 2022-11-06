@@ -1,6 +1,6 @@
 import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
 import db from '../firebase'
-import Group, { GroupData } from '../types/group'
+import Group, { GroupData } from '../types/groups'
 
 export async function createGroup(groupData: GroupData) {
   await addDoc(collection(db, 'groups'), groupData)

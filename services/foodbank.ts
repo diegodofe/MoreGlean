@@ -1,6 +1,6 @@
 import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
 import db from '../firebase'
-import Foodbank, { FoodbankData } from '../types/foodbank'
+import Foodbank, { FoodbankData } from '../types/foodbanks'
 
 export async function createFoodbank(foodbankData: FoodbankData) {
   await addDoc(collection(db, 'foodbanks'), foodbankData)
