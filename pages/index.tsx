@@ -3,9 +3,9 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../firebase'
+import { getUserById } from '../services/users'
 
 export default function Home() {
   const router = useRouter()
@@ -13,15 +13,24 @@ export default function Home() {
   const googleAuth = new GoogleAuthProvider()
 
   const handleLogin = async () => {
-    const result = await signInWithPopup(auth, googleAuth)
+    await signInWithPopup(auth, googleAuth)
+      .then(async (result) => {
+        console.log('Sign in response', result)
 
-    console.log('Sign in response', result)
+        console.log('Current user', user)
 
-    router.push('/events')
+        const authUser = auth.currentUser
+        const uid = authUser?.uid
+        if ((await getUserById(uid!)) !== undefined) {
+          router.push('/events')
+        } else {
+          router.push('/signup')
+        }
+      })
+      .catch((error) => {
+        console.log('Error message', error)
+      })
   }
-  useEffect(() => {
-    console.log('Current user', user)
-  }, [user])
 
   return (
     <>
