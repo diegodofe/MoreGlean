@@ -1,10 +1,12 @@
 import { Button, Heading, Pane } from 'evergreen-ui'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { GeoPoint } from 'firebase/firestore'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import LocationMap from '../components/LocationMap'
 import { auth } from '../firebase'
 
 export default function Home() {
@@ -52,6 +54,8 @@ export default function Home() {
           <Link href='/users'>
             <Button appearance='link'>View all users</Button>
           </Link>
+
+          <LocationMap location={new GeoPoint(45.5019, -73.5674)} />
         </Pane>
       </Pane>
     </>
