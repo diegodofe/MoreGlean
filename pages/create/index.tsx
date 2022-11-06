@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button, Heading, Pane } from 'evergreen-ui'
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 import {
   getRandomFirstName,
@@ -89,28 +89,23 @@ export default function Create() {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <h1>Create some data</h1>
-      <div style={{ display: 'flex', gap: 8 }}>
-        <Button type='link' onClick={handleCreateUser}>
+    <Pane display='flex' flexDirection='column' gap={8}>
+      <Heading>Create some data</Heading>
+
+      <Pane display='flex' gap={8}>
+        <Button appearance='link' onClick={handleCreateUser}>
           Create a user
         </Button>
-        <Button type='link' onClick={handleCreateEvent}>
+        <Button appearance='link' onClick={handleCreateEvent}>
           Create an event
         </Button>
-        <Button type='link' onClick={handleCreateGroup}>
+        <Button appearance='link' onClick={handleCreateGroup}>
           Create a group
         </Button>
-        <Button type='link' onClick={handleCreateFoodbank}>
+        <Button appearance='link' onClick={handleCreateFoodbank}>
           Create a foodbank
         </Button>
-      </div>
-    </div>
+      </Pane>
+    </Pane>
   )
 }
