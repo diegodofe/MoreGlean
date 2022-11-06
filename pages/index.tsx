@@ -50,6 +50,7 @@ export default function Home() {
 
         <Link href='/signup'>
           <Button type='link'>Sign up</Button>
+         </Link>
           
         <Link href='/users'>
           <Button type='link'>View all users</Button>
