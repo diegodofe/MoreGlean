@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button, Pane } from 'evergreen-ui'
 import { signOut } from 'firebase/auth'
 import router from 'next/router'
 import { useEffect } from 'react'
@@ -35,12 +35,12 @@ export default function EventsPage() {
   }, [])
 
   return (
-    <>
+    <Pane>
       <div>here are all the events!</div>
 
-      <Button type='primary' onClick={handleLogout}>
+      <Button appearance='primary' onClick={handleLogout}>
         Sign out from Google
       </Button>
-    </>
+    </Pane>
   )
 }
