@@ -52,6 +52,10 @@ export default function Home() {
           <Button type='link'>Sign up</Button>
          </Link>
           
+        <Link href='/register'>
+          <Button type='link'>Register as a Food Bank</Button>
+        </Link>
+
         <Link href='/users'>
           <Button type='link'>View all users</Button>
         </Link>
