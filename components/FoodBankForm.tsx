@@ -1,20 +1,19 @@
 import { DatePicker, Form } from 'antd'
 
 import { Button, Checkbox, Pane, TextInputField } from 'evergreen-ui'
+import { useState } from 'react'
 
-import React from 'react'
-
-type RangeValue = [moment.Moment | null, moment.Moment | null] | null
+import { RangeValue } from '../types/dates'
 
 export default function FoodBankForm() {
   const { RangePicker } = DatePicker
-  const [email, setEmail] = React.useState('')
-  const [name, setName] = React.useState('')
-  const [location, setLocation] = React.useState('')
-  const [foodAmt, setFoodAmt] = React.useState('')
-  const [checked, setChecked] = React.useState(false)
-  const [date, setDate] = React.useState<RangeValue>(null)
-  const [distance, setDist] = React.useState('')
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [location, setLocation] = useState('')
+  const [foodAmt, setFoodAmt] = useState('')
+  const [checked, setChecked] = useState(false)
+  const [date, setDate] = useState<RangeValue>(null)
+  const [distance, setDist] = useState('')
   const submitHandler = () => {
     console.log({ email, name, location, foodAmt, checked, date, distance })
   }

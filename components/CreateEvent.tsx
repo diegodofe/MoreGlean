@@ -1,14 +1,14 @@
 import { DatePicker, Space } from 'antd'
 import { Button, Pane, TextInputField } from 'evergreen-ui'
-import React from 'react'
+import { useState } from 'react'
 
 type RangeValue = moment.Moment | null
 
 export default function CreateEvent() {
-  const [farm, setName] = React.useState('')
-  const [location, setLocation] = React.useState('')
-  const [amount, setCapacity] = React.useState('')
-  const [date, setDate] = React.useState<RangeValue>(null)
+  const [farm, setName] = useState('')
+  const [location, setLocation] = useState('')
+  const [amount, setCapacity] = useState('')
+  const [date, setDate] = useState<RangeValue>(null)
 
   const submitHandler = () => {
     console.log({ farm, location, amount, date })

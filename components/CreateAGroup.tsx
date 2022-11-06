@@ -1,11 +1,11 @@
-import React from 'react'
+import { useState } from 'react'
 
 import { Button, Checkbox, Pane, TextInputField } from 'evergreen-ui'
 
 export default function CreateAGroup() {
-  const [name, setName] = React.useState('')
-  const [location, setLocation] = React.useState('')
-  const [checked, setChecked] = React.useState(false)
+  const [name, setName] = useState('')
+  const [location, setLocation] = useState('')
+  const [checked, setChecked] = useState(false)
   const submitHandler = () => {
     console.log({ name, location, checked })
   }
