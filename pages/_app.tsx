@@ -5,7 +5,6 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import Navbar from '../components/Navbar'
 import { auth } from '../firebase'
 import { getUserById } from '../services/users'
@@ -13,18 +12,12 @@ import '../styles/globals.css'
 
 function LandingPage() {
   const router = useRouter()
-  const [user] = useAuthState(auth)
   const googleAuth = new GoogleAuthProvider()
 
   const handleLogin = async () => {
     await signInWithPopup(auth, googleAuth)
       .then(async (result) => {
-        console.log('Sign in response', result)
-
-        console.log('Current user', user)
-
-        const authUser = auth.currentUser
-        const uid = authUser?.uid
+        const uid = result?.user?.uid
 
         if (!uid) return
 
@@ -37,6 +30,7 @@ function LandingPage() {
         console.log('Error message', error)
       })
   }
+
   return (
     <Pane>
       <Heading>Welcome</Heading>
