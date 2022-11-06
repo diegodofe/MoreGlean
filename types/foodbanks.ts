@@ -10,3 +10,5 @@ export default interface Foodbank {
   startDate: Timestamp
   endDate: Timestamp
 }
+
+export type FoodbankData = Omit<Foodbank, 'id'>

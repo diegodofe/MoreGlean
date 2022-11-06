@@ -1,6 +1,6 @@
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 import EventThumbnail from '../../components/EventThumbnail'
-import Event from '../../types/Event'
+import Event from '../../types/events'
 
 export default function EventsPage() {
   const fakeEvent: Event = {

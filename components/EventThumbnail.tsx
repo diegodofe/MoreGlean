@@ -1,6 +1,6 @@
 import { Rate } from 'antd'
 import Image from 'next/image'
-import Event from '../types/Event'
+import Event from '../types/events'
 
 export default function EventThumbnail({ event }: { event: Event }) {
   return (

@@ -1,9 +1,6 @@
-import User from '../types/user'
+import { Heading } from 'evergreen-ui'
+import User from '../types/users'
 
 export default function UserThumbnail({ user }: { user: User }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-      <h3>{`${user.name.toUpperCase()}!!!`}</h3>
-    </div>
-  )
+  return <Heading>{`${user.name.toUpperCase()}!!!`}</Heading>
 }

@@ -17,6 +17,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.24.1",
+    "evergreen-ui": "^6.12.0",
     "firebase": "^9.9.1",
     "framer-motion": "^6.5.1",
     "next": "^12.3.1",
