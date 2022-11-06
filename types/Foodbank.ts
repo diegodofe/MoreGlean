@@ -1,6 +1,6 @@
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 
-export default interface Foodbank {
+export interface Foodbank {
   id: string
   name: string
   email: string
@@ -10,3 +10,5 @@ export default interface Foodbank {
   startDate: Timestamp
   endDate: Timestamp
 }
+
+export type FoodbankData = Omit<Foodbank, 'id'>
