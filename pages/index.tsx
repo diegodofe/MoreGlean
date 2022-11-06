@@ -49,7 +49,11 @@ export default function Home() {
         </Link>
 
         <Link href='/register'>
-          <Button type='link'>Register a Foodbank</Button>
+          <Button type='link'>Register as a Food Bank</Button>
+        </Link>
+
+        <Link href='/users'>
+          <Button type='link'>View all users</Button>
         </Link>
       </div>
     </>
