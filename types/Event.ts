@@ -1,6 +1,6 @@
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 
-export interface Event {
+export default interface Event {
   id: string
   title: string
   date: Timestamp

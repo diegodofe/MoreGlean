@@ -1,6 +1,6 @@
 import { GeoPoint } from 'firebase/firestore'
 
-export interface Group {
+export default interface Group {
   id: string
   name: string
   location: GeoPoint

@@ -1,6 +1,6 @@
 import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
 import db from '../firebase'
-import { Event, EventData } from '../types/event'
+import Event, { EventData } from '../types/event'
 
 export async function createEvent(eventData: EventData) {
   await addDoc(collection(db, 'events'), {
