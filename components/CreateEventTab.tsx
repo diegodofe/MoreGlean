@@ -1,12 +1,11 @@
 import { DatePicker, InputNumber } from 'antd'
 import {
-  Button,
   Dialog,
   FilePicker,
   Heading,
   Pane,
   PlusIcon,
-  SelectMenu,
+  Select,
   Tab,
   Text,
   TextInputField,
@@ -17,6 +16,7 @@ import { ref, uploadBytes } from 'firebase/storage'
 import { useState } from 'react'
 import { MAX_LAT, MAX_LONG, MIN_LAT, MIN_LONG } from '../constants/location'
 import { storage } from '../firebase'
+import useFoodbanks from '../hooks/useFoodbanks'
 import { createEvent, getEventByDocRef } from '../services/event'
 import { DateValue } from '../types/dates'
 import { EventData } from '../types/events'
@@ -24,13 +24,24 @@ import { EventData } from '../types/events'
 export default function CreateEventTab() {
   const [isCreateEventShown, setIsCreateEventShown] = useState(false)
   const [eventTitle, setEventTitle] = useState('')
-  const [foodbank, setFoodbank] = useState('')
+  const [foodbankId, setFoodbankId] = useState('')
   const [foodAmount, setFoodAmount] = useState(0)
   const [date, setDate] = useState<DateValue>()
   const [file, setFile] = useState<File>()
   const [long, setLong] = useState(0)
   const [lat, setLat] = useState(0)
   const [description, setDescription] = useState('')
+
+  const { banks } = useFoodbanks()
+
+  const availableBanks = banks.filter(
+    (bank) =>
+      bank.pickupCapacity >= foodAmount &&
+      date &&
+      new Timestamp(date.unix(), 0) > bank.startDate &&
+      new Timestamp(date.unix(), 0) < bank.endDate
+  )
+
   // File upload
   const handleSelectFile = (files: FileList) => {
     if (files.length === 0) return
@@ -41,15 +52,14 @@ export default function CreateEventTab() {
   }
 
   const handleSubmit = async () => {
-    if (!date) return
+    if (!date || !foodbankId) return
     const eventDate = date.unix()
 
     const data: EventData = {
       title: eventTitle,
       date: new Timestamp(eventDate, 0),
-      foodbankId: foodbank,
+      foodbankId,
       foodAmount,
-
       location: new GeoPoint(lat, long),
       description,
       groupId: undefined,
@@ -116,16 +126,16 @@ export default function CreateEventTab() {
           />
 
           <Heading size={400}>Select foodbank for pickup</Heading>
-          <SelectMenu
-            title='Select Foodbank'
-            options={['Apple', 'Apricot', 'Banana', 'Cherry', 'Cucumber'].map(
-              (label) => ({ label, value: label })
-            )}
-            selected={foodbank}
-            onSelect={(item) => setFoodbank(item.value as string)}
+          <Select
+            value={foodbankId}
+            onChange={(event) => setFoodbankId(event.target.value as string)}
           >
-            <Button>{foodbank || 'Select fruit...'}</Button>
-          </SelectMenu>
+            {availableBanks.map((bank) => (
+              <option key={bank.id} value={bank.id}>
+                {bank.name}
+              </option>
+            ))}
+          </Select>
 
           <Heading size={400}>Farm location (latitude)</Heading>
           <InputNumber
