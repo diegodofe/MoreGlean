@@ -39,7 +39,7 @@ function LandingPage() {
       })
       .catch((error) => {
         console.error('Error message', error)
-        toaster.danger('Error logging in')
+        toaster.warning('Sign in aborted')
       })
   }
 
