@@ -30,6 +30,11 @@ export default function EventThumbnail({ event }: { event: Event }) {
 
   const { group } = useGroup({ groupId: event.groupId })
 
+  const handleSendInterest = () => {
+    // Send interest
+    console.log(user.groupId)
+  }
+
   useEffect(() => {
     getPhotoUrlByEventId(event.id).then(setEventImage)
   }, [event])
@@ -94,7 +99,11 @@ export default function EventThumbnail({ event }: { event: Event }) {
               onClick={() => setViewMap(!viewMap)}
             />
             {user.role === UserRole.GLEANER && (
-              <IconButton icon={SendMessageIcon} />
+              <IconButton
+                icon={SendMessageIcon}
+                disabled={!user.groupId}
+                onClick={handleSendInterest}
+              />
             )}
           </Pane>
         </Pane>
