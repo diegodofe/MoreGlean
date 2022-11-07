@@ -7,6 +7,7 @@ export default interface Event {
   foodbankId: string
   foodAmount: number
   location: GeoPoint
+  description: string
   groupId: string | undefined
 }
 

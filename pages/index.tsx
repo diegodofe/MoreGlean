@@ -2,12 +2,14 @@ import { Pane } from 'evergreen-ui'
 import Head from 'next/head'
 import { useContext } from 'react'
 import CreateEventButton from '../components/CreateEventButton'
+import EventThumbnail from '../components/EventThumbnail'
 import UserContext from '../constants/context'
+import useEvents from '../hooks/useEvents'
 import { UserRole } from '../types/users'
 
 export default function Home() {
   const user = useContext(UserContext)
-
+  const { events } = useEvents()
   const isFarmer = user.role === UserRole.FARMER
 
   return (
@@ -15,9 +17,14 @@ export default function Home() {
       <Head>
         <title>MoreGlean</title>
       </Head>
-      <Pane display='flex' flexDirection='column' gap={16} alignItems='center'>
+
+      <Pane>
         {isFarmer && <CreateEventButton />}
-        hello
+        <Pane display='flex' flexDirection='column' gap={32}>
+          {events.map((event) => (
+            <EventThumbnail key={event.id} event={event} />
+          ))}
+        </Pane>
       </Pane>
     </>
   )

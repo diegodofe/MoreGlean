@@ -145,7 +145,9 @@ function Layout({ children }: { children: React.ReactElement }) {
       </Pane>
 
       {/** PAGE CONTENT */}
-      <Pane flex={1}>{children}</Pane>
+      <Pane flex={1} display='flex' justifyContent='center'>
+        {children}
+      </Pane>
 
       {/** NAV BAR */}
       <Pane borderLeft>

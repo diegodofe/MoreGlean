@@ -1,4 +1,3 @@
-import { AimOutlined } from '@ant-design/icons'
 import { DatePicker, InputNumber } from 'antd'
 import {
   Button,
@@ -28,6 +27,7 @@ export default function CreateEventButton() {
   const [file, setFile] = useState<File>()
   const [long, setLong] = useState(0)
   const [lat, setLat] = useState(0)
+  const [description, setDescription] = useState('')
   // File upload
   const handleSelectFile = (files: FileList) => {
     if (files.length === 0) return
@@ -47,6 +47,7 @@ export default function CreateEventButton() {
       foodbankId: foodbank,
       foodAmount,
       location: new GeoPoint(lat, long),
+      description,
       groupId: undefined,
     }
 
@@ -84,17 +85,24 @@ export default function CreateEventButton() {
         confirmLabel='Create'
         onConfirm={handleSubmit}
       >
-        <Pane>
+        <Pane display='flex' flexDirection='column' gap={8}>
           <TextInputField
             required
             label='Event title'
             onChange={(e: any) => setEventTitle(e.target.value)}
             value={eventTitle}
-            placeholder='Enter a title for the event'
+            placeholder='Set a name for your gleaning event!'
           />
 
-          <AimOutlined />
+          <TextInputField
+            required
+            label='Farm description'
+            onChange={(e: any) => setDescription(e.target.value)}
+            value={eventTitle}
+            placeholder='Say something about your farm!'
+          />
 
+          <Heading size={400}>Select foodbank for pickup</Heading>
           <SelectMenu
             title='Select Foodbank'
             options={['Apple', 'Apricot', 'Banana', 'Cherry', 'Cucumber'].map(
@@ -103,10 +111,18 @@ export default function CreateEventButton() {
             selected={foodbank}
             onSelect={(item) => setFoodbank(item.value as string)}
           >
-            <Button>{foodbank || 'Select name...'}</Button>
+            <Button>{foodbank || 'Select fruit...'}</Button>
           </SelectMenu>
 
-          <Heading size={400}>Longitude</Heading>
+          <Heading size={400}>Farm location (latitude)</Heading>
+          <InputNumber
+            min={MIN_LAT}
+            max={MAX_LAT}
+            defaultValue={50}
+            onChange={handleSetLat}
+            value={lat}
+          />
+          <Heading size={400}>Farm location (longitude)</Heading>
           <InputNumber
             min={MIN_LONG}
             max={MAX_LONG}
@@ -115,14 +131,6 @@ export default function CreateEventButton() {
             value={long}
           />
 
-          <Heading size={400}>Latitude</Heading>
-          <InputNumber
-            min={MIN_LAT}
-            max={MAX_LAT}
-            defaultValue={50}
-            onChange={handleSetLat}
-            value={lat}
-          />
           <Heading size={400}>Amount of food (kg)</Heading>
           <InputNumber
             min={1}
@@ -138,11 +146,11 @@ export default function CreateEventButton() {
             value={date}
           />
 
+          <Heading size={400}>Farm photo</Heading>
           <FilePicker
             multiple
-            width='60%'
             onChange={handleSelectFile}
-            placeholder='Place your profile picture here!'
+            placeholder='Place your farm picture here!'
           />
         </Pane>
       </Dialog>
