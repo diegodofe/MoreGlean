@@ -51,6 +51,7 @@ export default function SignUpForm({
       email: currentFirebaseUser.email || '@gmail.com',
       acceptedConditions: checked,
       role,
+      groupId: undefined,
     }
 
     const imageRef = ref(storage, userFileLocation)
