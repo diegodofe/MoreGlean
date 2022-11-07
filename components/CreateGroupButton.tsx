@@ -10,6 +10,7 @@ import {
 import { GeoPoint } from 'firebase/firestore'
 import { useContext, useState } from 'react'
 import UserContext from '../constants/context'
+import { MAX_LAT, MAX_LONG, MIN_LAT, MIN_LONG } from '../constants/location'
 import { createGroup, getGroupByDocRef } from '../services/group'
 import { updateUserById } from '../services/users'
 import { GroupData } from '../types/groups'
@@ -43,11 +44,11 @@ export default function CreateGroupButton() {
   }
 
   const handleSetLong = (amount: number | null) => {
-    if (amount) setLong(amount)
+    if (amount) setLong(Math.ceil(amount))
   }
 
   const handleSetLat = (amount: number | null) => {
-    if (amount) setLat(amount)
+    if (amount) setLat(Math.ceil(amount))
   }
 
   return (
@@ -68,12 +69,20 @@ export default function CreateGroupButton() {
             value={groupName}
             placeholder='Enter a name for the group'
           />
-
           <Heading size={400}>Longitude</Heading>
-          <InputNumber min={1} defaultValue={50} onChange={handleSetLong} />
-
+          <InputNumber
+            min={MIN_LONG}
+            max={MAX_LONG}
+            defaultValue={50}
+            onChange={handleSetLong}
+          />
           <Heading size={400}>Latitude</Heading>
-          <InputNumber min={1} defaultValue={50} onChange={handleSetLat} />
+          <InputNumber
+            min={MIN_LAT}
+            max={MAX_LAT}
+            defaultValue={50}
+            onChange={handleSetLat}
+          />
         </Pane>
       </Dialog>
     </>

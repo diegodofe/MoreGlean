@@ -57,7 +57,7 @@ export default function SignUpForm({
     uploadBytes(imageRef, file)
 
     await createUser(currentFirebaseUser.uid, userData).then(() =>
-      router.push('/test')
+      router.push('/')
     )
 
     const user = await getUserById(currentFirebaseUser.uid)
