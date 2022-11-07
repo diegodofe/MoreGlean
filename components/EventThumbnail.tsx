@@ -3,7 +3,7 @@ import { Button, Heading, Pane, Text } from 'evergreen-ui'
 import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../constants/context'
-import { getPhotoUrlByEvent } from '../services/files'
+import { getPhotoUrlByEventId } from '../services/files'
 import Event from '../types/events'
 import { UserRole } from '../types/users'
 
@@ -12,7 +12,7 @@ export default function EventThumbnail({ event }: { event: Event }) {
   const [eventImage, setEventImage] = useState<string>('')
 
   useEffect(() => {
-    getPhotoUrlByEvent({ event }).then(setEventImage)
+    getPhotoUrlByEventId(event.id).then(setEventImage)
   }, [event])
 
   const eventDate = event.date.toDate()

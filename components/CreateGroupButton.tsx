@@ -39,6 +39,7 @@ export default function CreateGroupButton() {
     } else {
       toaster.warning('Error creating group')
     }
+    setIsCreateGroupShown(false)
   }
 
   const handleSetLong = (amount: number | null) => {

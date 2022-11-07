@@ -19,11 +19,11 @@ import { DateValue } from '../types/dates'
 import { EventData } from '../types/events'
 
 export default function CreateEventButton() {
+  const [isCreateEventShown, setIsCreateEventShown] = useState(false)
   const [eventTitle, setEventTitle] = useState('')
   const [foodbank, setFoodbank] = useState('')
   const [foodAmount, setFoodAmount] = useState(0)
   const [date, setDate] = useState<DateValue>()
-  const [isCreateEventShown, setIsCreateEventShown] = useState(false)
   const [file, setFile] = useState<File>()
   const [long, setLong] = useState(0)
   const [lat, setLat] = useState(0)
@@ -53,11 +53,12 @@ export default function CreateEventButton() {
     const createdEvent = await getEventByDocRef(await createEvent(data))
     if (!file) {
       toaster.warning('Event picture missing')
-      return
+    } else {
+      const userFileLocation = `images/events/${createdEvent?.id}`
+      const imageRef = ref(storage, userFileLocation)
+      uploadBytes(imageRef, file)
     }
-    const userFileLocation = `images/events/${createdEvent?.id}`
-    const imageRef = ref(storage, userFileLocation)
-    uploadBytes(imageRef, file)
+    setIsCreateEventShown(false)
   }
 
   const handleSetFoodAmount = (amount: number | null) => {

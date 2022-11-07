@@ -4,9 +4,11 @@ import { useContext } from 'react'
 import UserContext from '../constants/context'
 import useGroup from '../hooks/useGroup'
 import useUser from '../hooks/useUser'
+import useUserPhoto from '../hooks/useUserPhoto'
 
 function GroupMemberThumbnail({ userId }: { userId: string }) {
-  const { user, isLoading } = useUser({ userId })
+  const { user, isLoading: isUserLoading } = useUser({ userId })
+  const { userPhoto, isLoading: isPhotoLoading } = useUserPhoto({ userId })
 
   if (!user) {
     return (
@@ -19,11 +21,11 @@ function GroupMemberThumbnail({ userId }: { userId: string }) {
     )
   }
 
-  if (isLoading) return <Skeleton active />
+  if (isPhotoLoading || isUserLoading) return <Skeleton active />
 
   return (
     <Pane display='flex' gap={8} alignItems='center'>
-      <Avatar src='' name={user.name} />
+      <Avatar src={userPhoto} name={user.name} />
       <Pane display='flex' flexDirection='column' gap={8}>
         <Text>{user.name}</Text>
       </Pane>
