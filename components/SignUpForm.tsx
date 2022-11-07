@@ -5,13 +5,13 @@ import {
   RadioGroup,
   TextInputField,
 } from 'evergreen-ui'
-import React from 'react'
+import { useState } from 'react'
 
 export default function SignUpForm() {
-  const [name, setName] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [checked, setChecked] = React.useState(false)
-  const [role, setRole] = React.useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [checked, setChecked] = useState(false)
+  const [role, setRole] = useState('')
 
   const submitHandler = () => {
     if (name === '') {
