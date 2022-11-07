@@ -1,4 +1,4 @@
-import { GoogleMap, useLoadScript } from '@react-google-maps/api'
+import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
 import { GeoPoint } from 'firebase/firestore'
 import { useMemo } from 'react'
 
@@ -15,10 +15,8 @@ export default function LocationMap({ location }: { location: GeoPoint }) {
   if (!isLoaded) return <div>Loading...</div>
 
   return (
-    <GoogleMap
-      zoom={13}
-      center={center}
-      mapContainerClassName='map-container'
-    />
+    <GoogleMap zoom={13} center={center} mapContainerClassName='map-container'>
+      <MarkerF position={center} />
+    </GoogleMap>
   )
 }
