@@ -22,7 +22,7 @@ export default function EventThumbnail({ event }: { event: Event }) {
       display='flex'
       flexDirection='column'
       minWidth={100}
-      maxWidth={400}
+      maxWidth='90%'
       background='#fffcf2'
       padding={32}
       borderRadius={8}
