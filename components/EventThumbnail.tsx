@@ -11,6 +11,7 @@ import {
   SendMessageIcon,
   Text,
   TimeIcon,
+  toaster,
 } from 'evergreen-ui'
 import { GeoPoint } from 'firebase/firestore'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -21,6 +22,8 @@ import useGroup from '../hooks/useGroup'
 import { getPhotoUrlByEventId } from '../services/files'
 import Event from '../types/events'
 import { UserRole } from '../types/users'
+import sendEmail from '../utils/emails'
+import EmailModule from './EmailModule'
 import LocationMap from './LocationMap'
 
 export default function EventThumbnail({ event }: { event: Event }) {
@@ -32,6 +35,9 @@ export default function EventThumbnail({ event }: { event: Event }) {
 
   const handleSendInterest = () => {
     // Send interest
+    ;<EmailModule />
+    sendEmail(user.email, "Hi, you've joined a group on MoreGlean!")
+    toaster.success('Sent! Check your email.')
     console.log(user.groupId)
   }
 
