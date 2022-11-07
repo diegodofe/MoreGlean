@@ -5,7 +5,6 @@ export default interface Group {
   name: string
   location: GeoPoint
   rating: number
-  photo: string
   ownerId: string
   members: string[]
   memberCount: number
