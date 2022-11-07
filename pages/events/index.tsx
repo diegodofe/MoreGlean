@@ -1,6 +1,7 @@
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 import EventThumbnail from '../../components/EventThumbnail'
 import Event from '../../types/events'
+import User, { UserRole } from '../../types/users'
 
 export default function EventsPage() {
   const fakeEvent: Event = {
@@ -14,10 +15,18 @@ export default function EventsPage() {
     groupId: 'some-group-id',
   }
 
+  const fakeUser: User = {
+    id: '123',
+    name: 'john doe',
+    email: 'yahoo@yahoo.com',
+    photo: 'hi',
+    acceptedConditions: true,
+    role: UserRole.GLEANER,
+  }
   return (
     <div>
       <h1>Gleaning Event</h1>
-      <EventThumbnail event={fakeEvent} />
+      <EventThumbnail event={fakeEvent} user={fakeUser} />
     </div>
   )
 }

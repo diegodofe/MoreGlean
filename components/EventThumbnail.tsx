@@ -2,20 +2,38 @@ import { Rate } from 'antd'
 import { Button, Heading, Pane, Text } from 'evergreen-ui'
 import Image from 'next/image'
 import Event from '../types/events'
+import User, { UserRole } from '../types/users'
 
-export default function EventThumbnail({ event }: { event: Event }) {
+export default function EventThumbnail({
+  event,
+  user,
+}: {
+  event: Event
+  user: User
+}) {
   const eventDate = event.date.toDate()
+
   return (
-    <Pane display='flex' flexDirection='column' minWidth={100} maxWidth={400}>
+    <Pane
+      display='flex'
+      flexDirection='column'
+      minWidth={100}
+      maxWidth={400}
+      style={{ color: '#90EE90' }}
+    >
       <Image src={event.image} alt={event.title} width={300} height={200} />
       <Heading>Farm Name: {event.title}</Heading>
       <Pane display='flex' justifyContent='space-between'>
-        <Rate disabled defaultValue={3} />
-
-        <Button marginRight={16} appearance='primary' intent='none'>
-          REQUEST
-        </Button>
+        <>
+          <Rate disabled defaultValue={3} />
+          {user.role === UserRole.GLEANER && (
+            <Button marginRight={16} appearance='primary' intent='none'>
+              REQUEST
+            </Button>
+          )}
+        </>
       </Pane>
+
       <Text>
         Location: {event.location.latitude} N Longitude{' '}
         {event.location.longitude} W Latitude
