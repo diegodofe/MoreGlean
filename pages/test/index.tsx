@@ -30,6 +30,7 @@ export default function Create() {
     const eventData: EventData = {
       title: 'Event title',
       date: new Timestamp(2000000, 0),
+      image: 'https://picsum.photos/200',
       foodbankId: '',
       foodAmount: 0,
       location: new GeoPoint(10, 10),
