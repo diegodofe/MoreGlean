@@ -1,10 +1,10 @@
-import { DatePicker, Form, InputNumber } from 'antd'
+import { DatePicker, InputNumber } from 'antd'
 import {
   Button,
   Checkbox,
   Heading,
   Pane,
-  TextInputField,
+  TextInput,
   toaster,
 } from 'evergreen-ui'
 import { GeoPoint, Timestamp } from 'firebase/firestore'
@@ -63,47 +63,56 @@ export default function FoodBankForm() {
   }
 
   return (
-    <Pane padding='2%' width='80%' height='100%'>
-      <h1>Register as a Food Bank</h1>
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='Food Bank'
+    <Pane
+      display='flex'
+      flexDirection='column'
+      gap={8}
+      background='white'
+      padding={32}
+      borderRadius={8}
+    >
+      <Heading>Register a Foodbank</Heading>
+      <TextInput
+        width='100%'
         onChange={(e: any) => setName(e.target.value)}
         value={name}
         placeholder='Enter your food bank name.'
       />
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='Email'
+      <TextInput
+        width='100%'
         onChange={(e: any) => setEmail(e.target.value)}
         value={email}
         placeholder='Enter your email.'
       />
 
-      <Heading size={400}>Longitude</Heading>
-      <InputNumber
-        min={MIN_LONG}
-        max={MAX_LONG}
-        defaultValue={50}
-        onChange={handleSetLong}
-        value={long}
-      />
+      <Pane display='flex'>
+        <Pane flex={1}>
+          <Heading size={400}>Longitude</Heading>
+          <InputNumber
+            min={MIN_LONG}
+            max={MAX_LONG}
+            defaultValue={50}
+            onChange={handleSetLong}
+            value={long}
+          />
+        </Pane>
 
-      <Heading size={400}>Latitude</Heading>
-      <InputNumber
-        min={MIN_LAT}
-        max={MAX_LAT}
-        defaultValue={50}
-        onChange={handleSetLat}
-        value={lat}
-      />
+        <Pane flex={1}>
+          <Heading size={400}>Latitude</Heading>
+          <InputNumber
+            min={MIN_LAT}
+            max={MAX_LAT}
+            defaultValue={50}
+            onChange={handleSetLat}
+            value={lat}
+          />
+        </Pane>
+      </Pane>
+
       <Pane>
         Distance:
         <InputNumber
           required
-          style={{ width: 100 }}
           onChange={handleDistance}
           value={distance}
           placeholder='Enter the max distance you are willing to travel.'
@@ -115,25 +124,17 @@ export default function FoodBankForm() {
         <InputNumber
           min={1}
           required
-          style={{ width: 100 }}
           onChange={handleSetFoodAmount}
           value={foodAmt}
           placeholder='Enter the max food amount your bank can handle.'
         />
       </Pane>
 
-      <Form.Item
-        name='availabilities'
-        label='Available time range'
-        rules={[
-          {
-            required: true,
-            message: 'Please select your availability!',
-          },
-        ]}
-      >
+      <Pane>
+        Availablity
         <RangePicker onChange={setDate} value={date} />
-      </Form.Item>
+      </Pane>
+
       <Checkbox
         label='By clicking on sign-up, you agree to MoreGlean’s Terms and
         Conditions of Use.'
