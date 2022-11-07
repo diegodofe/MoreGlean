@@ -1,13 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { GoogleCircleFilled } from '@ant-design/icons'
+import { Popover } from 'antd'
 import 'antd/dist/antd.css'
 import {
+  Avatar,
+  Badge,
   Button,
   Heading,
+  HomeIcon,
   Pane,
+  PeopleIcon,
   Spinner,
   Tab,
   Tablist,
+  Text,
   toaster,
 } from 'evergreen-ui'
 import {
@@ -20,7 +26,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import CreateEventTab from '../components/CreateEventTab'
+import CreateGroupTab from '../components/CreateGroupTab'
 import FoodBankForm from '../components/FoodBankForm'
 import GroupNav from '../components/GroupNav'
 import SignUpForm from '../components/SignUpForm'
@@ -28,10 +36,11 @@ import { BACKGROUND_BEIGE } from '../constants/colors'
 import UserContext from '../constants/context'
 import { GROUPS, HOME } from '../constants/routes'
 import { auth } from '../firebase'
-import mainLogo from '../public/android-chrome-512x512.png'
+import useUserPhoto from '../hooks/useUserPhoto'
+import mainLogo from '../public/android-chrome-192x192.png'
 import { getUserById } from '../services/users'
 import '../styles/globals.css'
-import User from '../types/users'
+import User, { UserRole } from '../types/users'
 
 function LandingPage() {
   const [ShowFoodBankForm, setShowFoodBankForm] = useState(false)
@@ -160,23 +169,11 @@ function AuthenticateUser({ children }: { children: React.ReactElement }) {
 }
 
 function Layout({ children }: { children: React.ReactElement }) {
+  const user = useContext(UserContext)
+  const { userPhoto } = useUserPhoto({ userId: user.id })
   const router = useRouter()
 
-  interface NavItem {
-    name: string
-    location: string
-  }
-
-  const navItems: NavItem[] = [
-    {
-      name: 'Home',
-      location: HOME,
-    },
-    {
-      name: 'Groups',
-      location: GROUPS,
-    },
-  ]
+  const isFarmer = user.role === UserRole.FARMER
 
   const handleLogout = async () => {
     signOut(auth)
@@ -192,24 +189,59 @@ function Layout({ children }: { children: React.ReactElement }) {
   return (
     <Pane display='flex' minHeight='100vh'>
       {/** NAV BAR */}
-      <Pane borderRight>
-        <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
-          {navItems.map((item) => (
-            <Tab
-              key={item.name}
-              id={item.name}
-              direction='vertical'
-              onSelect={() => router.push(item.location)}
-              aria-controls={`panel-${item.name}`}
+      <Pane borderRight padding={16}>
+        <Pane marginBottom={32}>
+          <Image src={mainLogo} alt='MoreGlean-Logo' width={100} height={100} />
+        </Pane>
+
+        <Tablist display='flex' flexDirection='column' gap={32}>
+          <Tab
+            id='Home'
+            direction='vertical'
+            onSelect={() => router.push(HOME)}
+            aria-controls='panel-Home'
+          >
+            <Pane display='flex' alignItems='center' gap={8}>
+              <HomeIcon size={24} /> <Text>Home</Text>
+            </Pane>
+          </Tab>
+
+          <Tab
+            id='Group'
+            direction='vertical'
+            onSelect={() => router.push(GROUPS)}
+            aria-controls='panel-Group'
+          >
+            <Pane display='flex' alignItems='center' gap={8}>
+              <PeopleIcon size={24} /> <Text>Group</Text>
+            </Pane>
+          </Tab>
+
+          <CreateGroupTab />
+
+          {isFarmer ? <CreateEventTab /> : null}
+
+          <Popover
+            placement='right'
+            title='Account setting'
+            content={<Button onClick={handleLogout}>Log out</Button>}
+            trigger='click'
+          >
+            <Pane
+              display='flex'
+              alignItems='center'
+              gap={8}
+              hoverElevation={1}
+              padding={8}
+              borderRadius={8}
+              cursor='pointer'
             >
-              {item.name}
-            </Tab>
-          ))}
-          <Button appearance='primary' onClick={handleLogout}>
-            Sign out from Google
-          </Button>
+              <Avatar src={userPhoto} name={user.name} size={48} />
+              <Text>Profile</Text>
+              <Badge color={isFarmer ? 'orange' : 'green'}>{user.role}</Badge>
+            </Pane>
+          </Popover>
         </Tablist>
-        {/* <Avatar src = getPhotoFromFirebase={} */}
       </Pane>
 
       {/** PAGE CONTENT */}
