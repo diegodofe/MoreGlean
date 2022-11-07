@@ -111,7 +111,7 @@ export default function CreateEventTab() {
             required
             label='Farm description'
             onChange={(e: any) => setDescription(e.target.value)}
-            value={eventTitle}
+            value={description}
             placeholder='Say something about your farm!'
           />
 

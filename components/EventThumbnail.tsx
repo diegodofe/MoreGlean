@@ -23,7 +23,7 @@ export default function EventThumbnail({ event }: { event: Event }) {
       flexDirection='column'
       minWidth={100}
       maxWidth={400}
-      background='beige'
+      background='#fffcf2'
       padding={32}
       borderRadius={8}
       elevation={1}
