@@ -4,11 +4,12 @@ export default interface Group {
   id: string
   name: string
   location: GeoPoint
-  rating: number
-  photo: string
   ownerId: string
-  members: string[]
-  memberCount: number
+}
+
+export interface GroupMember {
+  id: string
+  name: string
 }
 
 export type GroupData = Omit<Group, 'id'>

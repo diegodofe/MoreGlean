@@ -17,6 +17,7 @@ import {
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import GroupNav from '../components/GroupNav'
 import SignUpForm from '../components/SignUpForm'
 import UserContext from '../constants/context'
 import { GROUPS, HOME } from '../constants/routes'
@@ -70,7 +71,7 @@ function AuthenticateUser({ children }: { children: React.ReactElement }) {
 
   if (!firebaseUser) return <LandingPage />
 
-  if (isUserLoading) return <Spinner />
+  if (isUserLoading) return <Spinner marginX='auto' />
 
   if (!user)
     return <SignUpForm currentFirebaseUser={firebaseUser} setUser={setUser} />
@@ -129,7 +130,9 @@ function Layout({ children }: { children: React.ReactElement }) {
       <Pane flex={1}>{children}</Pane>
 
       {/** NAV BAR */}
-      <Pane borderLeft>people</Pane>
+      <Pane borderLeft>
+        <GroupNav />
+      </Pane>
     </Pane>
   )
 }

@@ -45,20 +45,10 @@ export default function Create() {
 
     if (allUsers.length < 5) return
 
-    const groupMembers = [allUsers[1].id, allUsers[2].id, allUsers[3].id]
-
-    const min = Math.ceil(0)
-    const max = Math.floor(5)
-    const score = Math.floor(Math.random() * (max - min + 1) + min)
-
     const groupData: GroupData = {
       name: getRandomGroupName(),
       location: new GeoPoint(5, 5),
-      rating: score,
-      photo: 'https://picsum.photos/200',
       ownerId: allUsers[0].id,
-      members: groupMembers,
-      memberCount: groupMembers.length,
     }
 
     await createGroup(groupData)
