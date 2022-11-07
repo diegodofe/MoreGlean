@@ -1,9 +1,11 @@
 import { InputNumber } from 'antd'
 import {
-  Button,
   Dialog,
   Heading,
   Pane,
+  PlusIcon,
+  Tab,
+  Text,
   TextInputField,
   toaster,
 } from 'evergreen-ui'
@@ -15,7 +17,7 @@ import { createGroup, getGroupByDocRef } from '../services/group'
 import { updateUserById } from '../services/users'
 import { GroupData } from '../types/groups'
 
-export default function CreateGroupButton() {
+export default function CreateGroupTab() {
   const user = useContext(UserContext)
   const [isCreateGroupShown, setIsCreateGroupShown] = useState(false)
   const [groupName, setGroupName] = useState('')
@@ -53,7 +55,16 @@ export default function CreateGroupButton() {
 
   return (
     <>
-      <Button onClick={() => setIsCreateGroupShown(true)}>Create Group</Button>
+      <Tab
+        id='Create-Group'
+        direction='vertical'
+        aria-controls='panel-Group'
+        onSelect={() => setIsCreateGroupShown(true)}
+      >
+        <Pane display='flex' alignItems='center' gap={8}>
+          <PlusIcon size={24} /> <Text>Create Group</Text>
+        </Pane>
+      </Tab>
       <Dialog
         isShown={isCreateGroupShown}
         title='Create a group'

@@ -1,7 +1,7 @@
 import { Pane } from 'evergreen-ui'
 import Head from 'next/head'
 import { useContext } from 'react'
-import CreateEventButton from '../components/CreateEventButton'
+import CreateEventTab from '../components/CreateEventTab'
 import EventThumbnail from '../components/EventThumbnail'
 import UserContext from '../constants/context'
 import useEvents from '../hooks/useEvents'
@@ -19,7 +19,7 @@ export default function Home() {
       </Head>
 
       <Pane>
-        {isFarmer && <CreateEventButton />}
+        {isFarmer && <CreateEventTab />}
         <Pane display='flex' flexDirection='column' gap={32}>
           {events.map((event) => (
             <EventThumbnail key={event.id} event={event} />

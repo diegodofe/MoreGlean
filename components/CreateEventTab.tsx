@@ -1,11 +1,13 @@
 import { DatePicker, InputNumber } from 'antd'
 import {
-  Button,
   Dialog,
   FilePicker,
   Heading,
   Pane,
+  PlusIcon,
   Select,
+  Tab,
+  Text,
   TextInputField,
   toaster,
 } from 'evergreen-ui'
@@ -19,7 +21,7 @@ import { createEvent, getEventByDocRef } from '../services/event'
 import { DateValue } from '../types/dates'
 import { EventData } from '../types/events'
 
-export default function CreateEventButton() {
+export default function CreateEventTab() {
   const [isCreateEventShown, setIsCreateEventShown] = useState(false)
   const [eventTitle, setEventTitle] = useState('')
   const [foodbankId, setFoodbankId] = useState('')
@@ -89,7 +91,16 @@ export default function CreateEventButton() {
 
   return (
     <>
-      <Button onClick={() => setIsCreateEventShown(true)}>Create Event</Button>
+      <Tab
+        id='Create-Event'
+        direction='vertical'
+        aria-controls='panel-Group'
+        onSelect={() => setIsCreateEventShown(true)}
+      >
+        <Pane display='flex' alignItems='center' gap={8}>
+          <PlusIcon size={24} /> <Text>Create Event</Text>
+        </Pane>
+      </Tab>
       <Dialog
         isShown={isCreateEventShown}
         title='Create an event'

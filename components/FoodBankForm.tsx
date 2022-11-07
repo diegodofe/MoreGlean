@@ -25,6 +25,16 @@ export default function FoodBankForm() {
   const [long, setLong] = useState(0)
   const [lat, setLat] = useState(0)
 
+  const disableSubmit =
+    !email ||
+    !name ||
+    !foodAmt ||
+    !checked ||
+    !date ||
+    !distance ||
+    !long ||
+    !lat
+
   const submitHandler = () => {
     if (!date || !date[0] || !date[1]) return
 
@@ -68,59 +78,34 @@ export default function FoodBankForm() {
       flexDirection='column'
       gap={8}
       background='white'
-      padding={32}
       borderRadius={8}
     >
-      <Heading>Register a Foodbank</Heading>
+      <Heading textAlign='center'>Your foodbank information</Heading>
       <TextInput
         width='100%'
         onChange={(e: any) => setName(e.target.value)}
         value={name}
-        placeholder='Enter your food bank name.'
+        placeholder='Enter food bank name'
       />
       <TextInput
         width='100%'
         onChange={(e: any) => setEmail(e.target.value)}
         value={email}
-        placeholder='Enter your email.'
+        placeholder='Please provide food bank email address'
       />
 
-      <Pane display='flex'>
-        <Pane flex={1}>
-          <Heading size={400}>Longitude</Heading>
-          <InputNumber
-            min={MIN_LONG}
-            max={MAX_LONG}
-            defaultValue={50}
-            onChange={handleSetLong}
-            value={long}
-          />
-        </Pane>
-
-        <Pane flex={1}>
-          <Heading size={400}>Latitude</Heading>
-          <InputNumber
-            min={MIN_LAT}
-            max={MAX_LAT}
-            defaultValue={50}
-            onChange={handleSetLat}
-            value={lat}
-          />
-        </Pane>
-      </Pane>
-
-      <Pane>
-        Distance:
+      <Pane display='flex' justifyContent='space-between'>
+        <Heading size={400}>Pick up distance (km)</Heading>
         <InputNumber
           required
           onChange={handleDistance}
           value={distance}
-          placeholder='Enter the max distance you are willing to travel.'
+          placeholder='Max distance you are willing to travel.'
         />
       </Pane>
 
-      <Pane>
-        Food Capacity:
+      <Pane display='flex' justifyContent='space-between'>
+        <Heading size={400}>Pick up capacity</Heading>
         <InputNumber
           min={1}
           required
@@ -130,10 +115,30 @@ export default function FoodBankForm() {
         />
       </Pane>
 
-      <Pane>
-        Availablity
-        <RangePicker onChange={setDate} value={date} />
+      <Pane display='flex' justifyContent='space-between'>
+        <Heading size={400}>Location (Latitude)</Heading>
+        <InputNumber
+          min={MIN_LAT}
+          max={MAX_LAT}
+          defaultValue={50}
+          onChange={handleSetLat}
+          value={lat}
+        />
       </Pane>
+
+      <Pane display='flex' justifyContent='space-between'>
+        <Heading size={400}>Location (Longitude)</Heading>
+        <InputNumber
+          min={MIN_LONG}
+          max={MAX_LONG}
+          defaultValue={50}
+          onChange={handleSetLong}
+          value={long}
+        />
+      </Pane>
+
+      <Heading size={400}>Availability</Heading>
+      <RangePicker onChange={setDate} value={date} />
 
       <Checkbox
         label='By clicking on sign-up, you agree to MoreGlean’s Terms and
@@ -141,7 +146,11 @@ export default function FoodBankForm() {
         checked={checked}
         onChange={(e) => setChecked(e.target.checked)}
       />
-      <Button appearance='primary' onClick={submitHandler}>
+      <Button
+        appearance='primary'
+        onClick={submitHandler}
+        disabled={disableSubmit}
+      >
         Submit
       </Button>
     </Pane>
