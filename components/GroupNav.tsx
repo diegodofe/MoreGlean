@@ -56,7 +56,7 @@ export default function GroupNav() {
         <GroupMemberThumbnail
           key={memberId}
           userId={memberId}
-          isOwner={memberId === user.id}
+          isOwner={memberId === group.ownerId}
         />
       ))}
     </Pane>
