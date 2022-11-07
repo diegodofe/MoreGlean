@@ -189,61 +189,68 @@ function Layout({ children }: { children: React.ReactElement }) {
   return (
     <Pane display='flex' minHeight='100vh'>
       {/** NAV BAR */}
-      <Pane borderRight padding={16}>
-        <Pane marginBottom={32}>
-          <Image src={mainLogo} alt='MoreGlean-Logo' width={100} height={100} />
-        </Pane>
 
-        <Tablist display='flex' flexDirection='column' gap={32}>
-          <Tab
-            id='Home'
-            direction='vertical'
-            onSelect={() => router.push(HOME)}
-            aria-controls='panel-Home'
-          >
-            <Pane display='flex' alignItems='center' gap={8}>
-              <HomeIcon size={24} /> <Text>Home</Text>
-            </Pane>
-          </Tab>
+      <Pane borderRight>
+        <Pane padding={16} position='sticky' top={0} alignSelf='flex-start'>
+          <Pane marginBottom={32}>
+            <Image
+              src={mainLogo}
+              alt='MoreGlean-Logo'
+              width={100}
+              height={100}
+            />
+          </Pane>
 
-          <Tab
-            id='Group'
-            direction='vertical'
-            onSelect={() => router.push(GROUPS)}
-            aria-controls='panel-Group'
-          >
-            <Pane display='flex' alignItems='center' gap={8}>
-              <PeopleIcon size={24} /> <Text>Group</Text>
-            </Pane>
-          </Tab>
-
-          <CreateGroupTab />
-
-          {isFarmer ? <CreateEventTab /> : null}
-
-          <Popover
-            placement='right'
-            title='Account setting'
-            content={<Button onClick={handleLogout}>Log out</Button>}
-            trigger='click'
-          >
-            <Pane
-              display='flex'
-              alignItems='center'
-              gap={8}
-              hoverElevation={1}
-              padding={8}
-              borderRadius={8}
-              cursor='pointer'
+          <Tablist display='flex' flexDirection='column' gap={32}>
+            <Tab
+              id='Home'
+              direction='vertical'
+              onSelect={() => router.push(HOME)}
+              aria-controls='panel-Home'
             >
-              <Avatar src={userPhoto} name={user.name} size={48} />
-              <Text>Profile</Text>
-              <Badge color={isFarmer ? 'orange' : 'green'}>{user.role}</Badge>
-            </Pane>
-          </Popover>
-        </Tablist>
-      </Pane>
+              <Pane display='flex' alignItems='center' gap={8}>
+                <HomeIcon size={24} /> <Text>Home</Text>
+              </Pane>
+            </Tab>
 
+            <Tab
+              id='Group'
+              direction='vertical'
+              onSelect={() => router.push(GROUPS)}
+              aria-controls='panel-Group'
+            >
+              <Pane display='flex' alignItems='center' gap={8}>
+                <PeopleIcon size={24} /> <Text>Group</Text>
+              </Pane>
+            </Tab>
+
+            <CreateGroupTab />
+
+            {isFarmer ? <CreateEventTab /> : null}
+
+            <Popover
+              placement='right'
+              title='Account setting'
+              content={<Button onClick={handleLogout}>Log out</Button>}
+              trigger='click'
+            >
+              <Pane
+                display='flex'
+                alignItems='center'
+                gap={8}
+                hoverElevation={1}
+                padding={8}
+                borderRadius={8}
+                cursor='pointer'
+              >
+                <Avatar src={userPhoto} name={user.name} size={48} />
+                <Text>Profile</Text>
+                <Badge color={isFarmer ? 'orange' : 'green'}>{user.role}</Badge>
+              </Pane>
+            </Popover>
+          </Tablist>
+        </Pane>
+      </Pane>
       {/** PAGE CONTENT */}
       <Pane flex={1} display='flex' justifyContent='center'>
         {children}
