@@ -43,7 +43,7 @@ export default function SignUpForm({
       return
     }
 
-    const userFileLocation = `images/${currentFirebaseUser.uid}`
+    const userFileLocation = `images/profiles/${currentFirebaseUser.uid}`
 
     const userData: UserData = {
       name,

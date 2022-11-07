@@ -96,6 +96,10 @@ function Layout({ children }: { children: React.ReactElement }) {
       location: GROUPS,
     },
     {
+      name: 'Event Form Test',
+      location: '/eventform',
+    },
+    {
       name: 'Test',
       location: '/test',
     },
@@ -118,12 +122,13 @@ function Layout({ children }: { children: React.ReactElement }) {
             </Tab>
           ))}
         </Tablist>
+        {/* <Avatar src = getPhotoFromFirebase={} */}
       </Pane>
 
       {/** PAGE CONTENT */}
-
       <Pane flex={1}>{children}</Pane>
 
+      {/** NAV BAR */}
       <Pane borderLeft>people</Pane>
     </Pane>
   )
