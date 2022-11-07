@@ -13,6 +13,7 @@ import {
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 import { ref, uploadBytes } from 'firebase/storage'
 import { useState } from 'react'
+import { MAX_LAT, MAX_LONG, MIN_LAT, MIN_LONG } from '../constants/location'
 import { storage } from '../firebase'
 import { createEvent, getEventByDocRef } from '../services/event'
 import { DateValue } from '../types/dates'
@@ -107,7 +108,8 @@ export default function CreateEventButton() {
 
           <Heading size={400}>Longitude</Heading>
           <InputNumber
-            min={0}
+            min={MIN_LONG}
+            max={MAX_LONG}
             defaultValue={50}
             onChange={handleSetLong}
             value={long}
@@ -115,7 +117,8 @@ export default function CreateEventButton() {
 
           <Heading size={400}>Latitude</Heading>
           <InputNumber
-            min={0}
+            min={MIN_LAT}
+            max={MAX_LAT}
             defaultValue={50}
             onChange={handleSetLat}
             value={lat}
