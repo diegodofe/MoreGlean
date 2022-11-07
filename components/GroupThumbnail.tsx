@@ -3,19 +3,17 @@ import { Button, Heading, Pane, Text } from 'evergreen-ui'
 import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../constants/context'
-import { getPhotoUrlByEventId } from '../services/files'
-import Event from '../types/events'
+import { getPhotoUrlByGroupId } from '../services/files'
+import Group from '../types/groups'
 import { UserRole } from '../types/users'
 
-export default function EventThumbnail({ event }: { event: Event }) {
+export default function GroupThumbnail({ group }: { group: Group }) {
   const user = useContext(UserContext)
-  const [eventImage, setEventImage] = useState<string>('')
+  const [groupImage, setGroupImage] = useState<string>('')
 
   useEffect(() => {
-    getPhotoUrlByEventId(event.id).then(setEventImage)
-  }, [event])
-
-  const eventDate = event.date.toDate()
+    getPhotoUrlByGroupId(group.id).then(setGroupImage)
+  }, [group])
 
   return (
     <Pane
@@ -30,37 +28,28 @@ export default function EventThumbnail({ event }: { event: Event }) {
     >
       <Pane position='relative' width='100%' height={200}>
         <Image
-          src={eventImage}
-          alt={event.title}
+          src={groupImage}
+          alt={group.name}
           layout='fill'
           objectFit='cover'
         />
       </Pane>
-      <Heading>{event.title}</Heading>
+      <Heading>{group.name}</Heading>
       <Pane display='flex' justifyContent='space-between'>
         <>
-          <Rate />
+          {user.role === UserRole.FARMER && <Rate />}
           {user.role === UserRole.GLEANER && (
             <Button marginRight={16} appearance='primary' intent='none'>
-              REQUEST
+              JOIN GROUP
             </Button>
           )}
         </>
       </Pane>
 
       <Text>
-        Location: {event.location.latitude} N Longitude{' '}
-        {event.location.longitude} W Latitude
+        Location: {group.location.latitude} N Longitude{' '}
+        {group.location.longitude} W Latitude
       </Text>
-      <Text>
-        Date: {eventDate.getMonth()}/{eventDate.getDate()}/
-        {eventDate.getFullYear()}
-      </Text>
-      <Text>
-        Time: {eventDate.getHours()}:{eventDate.getMinutes()}0 hours
-      </Text>
-      <Text>Food Capacity (kg): {event.foodAmount}</Text>
-      <Text>Description: {event.description}</Text>
     </Pane>
   )
 }

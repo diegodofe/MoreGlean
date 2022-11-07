@@ -1,6 +1,7 @@
 import { InputNumber } from 'antd'
 import {
   Dialog,
+  FilePicker,
   Heading,
   Pane,
   PlusIcon,
@@ -10,9 +11,11 @@ import {
   toaster,
 } from 'evergreen-ui'
 import { GeoPoint } from 'firebase/firestore'
+import { ref, uploadBytes } from 'firebase/storage'
 import { useContext, useState } from 'react'
 import UserContext from '../constants/context'
 import { MAX_LAT, MAX_LONG, MIN_LAT, MIN_LONG } from '../constants/location'
+import { storage } from '../firebase'
 import { createGroup, getGroupByDocRef } from '../services/group'
 import { updateUserById } from '../services/users'
 import { GroupData } from '../types/groups'
@@ -23,6 +26,16 @@ export default function CreateGroupTab() {
   const [groupName, setGroupName] = useState('')
   const [long, setLong] = useState(0)
   const [lat, setLat] = useState(0)
+  const [file, setFile] = useState<File>()
+
+  // File upload
+  const handleSelectFile = (files: FileList) => {
+    if (files.length === 0) return
+
+    const newFile = files[0]
+
+    setFile(newFile)
+  }
 
   const handleSubmit = async () => {
     const groupData: GroupData = {
@@ -42,6 +55,16 @@ export default function CreateGroupTab() {
     } else {
       toaster.warning('Error creating group')
     }
+
+    // File upload
+    if (!file) {
+      toaster.warning('Group picture missing')
+    } else {
+      const userFileLocation = `images/groups/${newGroup?.id}`
+      const imageRef = ref(storage, userFileLocation)
+      uploadBytes(imageRef, file)
+    }
+
     setIsCreateGroupShown(false)
   }
 
@@ -65,6 +88,7 @@ export default function CreateGroupTab() {
           <PlusIcon size={24} /> <Text>Create Group</Text>
         </Pane>
       </Tab>
+
       <Dialog
         isShown={isCreateGroupShown}
         title='Create a group'
@@ -75,24 +99,35 @@ export default function CreateGroupTab() {
         <Pane>
           <TextInputField
             required
-            label='Group name'
+            label='Name'
             onChange={(e: any) => setGroupName(e.target.value)}
             value={groupName}
-            placeholder='Enter a name for the group'
+            placeholder='Enter your gleaning group name!'
           />
-          <Heading size={400}>Longitude</Heading>
-          <InputNumber
-            min={MIN_LONG}
-            max={MAX_LONG}
-            defaultValue={50}
-            onChange={handleSetLong}
-          />
-          <Heading size={400}>Latitude</Heading>
-          <InputNumber
-            min={MIN_LAT}
-            max={MAX_LAT}
-            defaultValue={50}
-            onChange={handleSetLat}
+          <Pane display='flex' justifyContent='space-between'>
+            <Heading size={400}>Base location (latitude)</Heading>
+            <InputNumber
+              min={MIN_LAT}
+              max={MAX_LAT}
+              defaultValue={50}
+              onChange={handleSetLat}
+            />
+          </Pane>
+          <Pane display='flex' justifyContent='space-between'>
+            <Heading size={400}>Base location (longitude)</Heading>
+            <InputNumber
+              min={MIN_LONG}
+              max={MAX_LONG}
+              defaultValue={50}
+              onChange={handleSetLong}
+            />
+          </Pane>
+
+          <Heading size={400}>Group photo</Heading>
+          <FilePicker
+            multiple
+            onChange={handleSelectFile}
+            placeholder='Place your group picture here!'
           />
         </Pane>
       </Dialog>

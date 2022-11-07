@@ -116,7 +116,7 @@ export default function FoodBankForm() {
       </Pane>
 
       <Pane display='flex' justifyContent='space-between'>
-        <Heading size={400}>Location (Latitude)</Heading>
+        <Heading size={400}>Location (latitude)</Heading>
         <InputNumber
           min={MIN_LAT}
           max={MAX_LAT}
@@ -127,7 +127,7 @@ export default function FoodBankForm() {
       </Pane>
 
       <Pane display='flex' justifyContent='space-between'>
-        <Heading size={400}>Location (Longitude)</Heading>
+        <Heading size={400}>Location (longitude)</Heading>
         <InputNumber
           min={MIN_LONG}
           max={MAX_LONG}
