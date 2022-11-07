@@ -97,10 +97,6 @@ function Layout({ children }: { children: React.ReactElement }) {
       location: GROUPS,
     },
     {
-      name: 'Event Form Test',
-      location: '/eventform',
-    },
-    {
       name: 'Test',
       location: '/test',
     },

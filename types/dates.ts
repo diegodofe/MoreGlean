@@ -1,1 +1,3 @@
-export type RangeValue = [moment.Moment | null, moment.Moment | null] | null
+export type DateValue = moment.Moment | null
+
+export type RangeValue = [DateValue, DateValue] | null

@@ -29,6 +29,7 @@ export default function SignUpForm({
   const [file, setFile] = useState<File>()
   const [role, setRole] = useState(UserRole.GLEANER)
 
+  // File upload
   const handleSelectFile = (files: FileList) => {
     if (files.length === 0) return
 
@@ -38,22 +39,20 @@ export default function SignUpForm({
   }
 
   const submitHandler = async () => {
-    if (!file) {
-      toaster.warning('Profile picture missing')
-      return
-    }
-
-    const userFileLocation = `images/profiles/${currentFirebaseUser.uid}`
-
     const userData: UserData = {
       name,
-      photo: userFileLocation,
       email: currentFirebaseUser.email || '@gmail.com',
       acceptedConditions: checked,
       role,
       groupId: undefined,
     }
 
+    // File upload
+    if (!file) {
+      toaster.warning('Profile picture missing')
+      return
+    }
+    const userFileLocation = `images/profiles/${currentFirebaseUser.uid}`
     const imageRef = ref(storage, userFileLocation)
     uploadBytes(imageRef, file)
 
