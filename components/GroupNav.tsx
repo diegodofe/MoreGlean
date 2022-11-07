@@ -27,7 +27,8 @@ function GroupMemberThumbnail({ userId }: { userId: string }) {
     <Pane display='flex' gap={8} alignItems='center'>
       <Avatar src={userPhoto} name={user.name} size={48} />
       <Pane display='flex' flexDirection='column' gap={8}>
-        <Text>{user.name}</Text>
+        <Text fontWeight={600}>{user.name}</Text>
+        <Text color='muted'>{user.email}</Text>
       </Pane>
     </Pane>
   )

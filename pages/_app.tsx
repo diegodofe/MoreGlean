@@ -252,12 +252,18 @@ function Layout({ children }: { children: React.ReactElement }) {
       </Pane>
 
       {/** PAGE CONTENT */}
-      <Pane flex={1} display='flex' justifyContent='center'>
+      <Pane flex={1} display='flex' justifyContent='center' padding={32}>
         {children}
       </Pane>
 
       {/** GROUP NAV BAR */}
-      <Pane padding={16} position='sticky' top={0} alignSelf='flex-start'>
+      <Pane
+        padding={16}
+        position='sticky'
+        top={0}
+        alignSelf='flex-start'
+        marginRight={48}
+      >
         <GroupNav />
       </Pane>
     </Pane>

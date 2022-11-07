@@ -51,3 +51,15 @@ export function listenToGroups({ cb }: { cb: (newGroups: Group[]) => void }) {
     cb(groups)
   })
 }
+
+export function listenToGroupById({
+  groupId,
+  cb,
+}: {
+  groupId: string
+  cb: (newGroups: Group) => void
+}) {
+  return onSnapshot(doc(db, 'groups', groupId), (groupDoc) => {
+    cb({ id: groupDoc.id, ...groupDoc.data() } as unknown as Group)
+  })
+}

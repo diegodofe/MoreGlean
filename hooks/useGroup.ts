@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react'
-import { getGroupById } from '../services/group'
+import { listenToGroupById } from '../services/group'
 import Group from '../types/groups'
 
 export default function useGroup({ groupId }: { groupId: string | undefined }) {
   const [group, setGroup] = useState<Group>()
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (!groupId) return
+    if (!groupId) return undefined
 
-    setIsLoading(true)
-    getGroupById(groupId)
-      .then(setGroup)
-      .finally(() => setIsLoading(false))
+    return listenToGroupById({ groupId, cb: setGroup })
   }, [groupId])
 
-  return { group, isLoading }
+  return { group }
 }
