@@ -5,6 +5,8 @@ import {
   DocumentData,
   DocumentReference,
   getDoc,
+  onSnapshot,
+  query,
 } from 'firebase/firestore'
 import db from '../firebase'
 import Event, { EventData } from '../types/events'
@@ -39,4 +41,16 @@ export async function getEventByDocRef(
   const event: Event = { id: docSnap.id, ...docSnap.data() } as unknown as Event
 
   return event
+}
+
+export function listenToEvents({ cb }: { cb: (newEvents: Event[]) => void }) {
+  const q = query(collection(db, 'events'))
+
+  return onSnapshot(q, (querySnapshot) => {
+    const events: Event[] = []
+    querySnapshot.forEach((docSnap) => {
+      events.push({ id: docSnap.id, ...docSnap.data() } as unknown as Event)
+    })
+    cb(events)
+  })
 }

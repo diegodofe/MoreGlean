@@ -23,10 +23,20 @@ export default function EventThumbnail({ event }: { event: Event }) {
       flexDirection='column'
       minWidth={100}
       maxWidth={400}
-      style={{ color: '#90EE90' }}
+      background='beige'
+      padding={32}
+      borderRadius={8}
+      elevation={1}
     >
-      <Image src={eventImage} alt={event.title} width={300} height={200} />
-      <Heading>Farm Name: {event.title}</Heading>
+      <Pane position='relative' width='100%' height={200}>
+        <Image
+          src={eventImage}
+          alt={event.title}
+          layout='fill'
+          objectFit='cover'
+        />
+      </Pane>
+      <Heading>{event.title}</Heading>
       <Pane display='flex' justifyContent='space-between'>
         <>
           <Rate />
@@ -47,16 +57,10 @@ export default function EventThumbnail({ event }: { event: Event }) {
         {eventDate.getFullYear()}
       </Text>
       <Text>
-        Time: {eventDate.getHours()}:{eventDate.getMinutes()}
+        Time: {eventDate.getHours()}:{eventDate.getMinutes()}0 hours
       </Text>
-      <Text>Number of People Going: 33 </Text>
       <Text>Food Capacity (kg): {event.foodAmount}</Text>
-      <br />
-      <Text>
-        Description: Come and help out this farm. Products to glean include
-        tomatoes, potatoes, squash, and cucumbers. Your help is greatly
-        appreciated. This farm is easily accessible. All gleaners all welcome!,
-      </Text>
+      <Text>Description: {event.description}</Text>
     </Pane>
   )
 }
