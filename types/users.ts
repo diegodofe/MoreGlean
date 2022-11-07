@@ -4,6 +4,7 @@ export default interface User {
   email: string
   photo: string
   acceptedConditions: boolean
+  groupId: string | undefined
   role: UserRole
 }
 

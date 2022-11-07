@@ -3,7 +3,10 @@ import db from '../firebase'
 import User, { UserData } from '../types/users'
 
 export async function createUser(id: string, userData: UserData) {
-  await setDoc(doc(db, 'users', id), userData)
+  await setDoc(doc(db, 'users', id), {
+    ...userData,
+    groupId: null, // Firestore cannot accept undefined for ommited values
+  })
 }
 
 export async function getAllUsers() {

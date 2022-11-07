@@ -22,6 +22,7 @@ export default function EventsPage() {
     photo: 'https://picsum.photos/200',
     acceptedConditions: true,
     role: UserRole.GLEANER,
+    groupId: undefined,
   }
   return (
     <div>
