@@ -262,7 +262,7 @@ function Layout({ children }: { children: React.ReactElement }) {
         position='sticky'
         top={0}
         alignSelf='flex-start'
-        marginRight={48}
+        width={350}
       >
         <GroupNav />
       </Pane>

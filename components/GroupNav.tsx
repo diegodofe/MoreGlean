@@ -1,12 +1,18 @@
 import { Skeleton } from 'antd'
-import { Avatar, Heading, Pane, Text } from 'evergreen-ui'
+import { Avatar, CrownIcon, Heading, Pane, Text } from 'evergreen-ui'
 import { useContext } from 'react'
 import UserContext from '../constants/context'
 import useGroup from '../hooks/useGroup'
 import useUser from '../hooks/useUser'
 import useUserPhoto from '../hooks/useUserPhoto'
 
-function GroupMemberThumbnail({ userId }: { userId: string }) {
+function GroupMemberThumbnail({
+  userId,
+  isOwner,
+}: {
+  userId: string
+  isOwner: boolean
+}) {
   const { user, isLoading: isUserLoading } = useUser({ userId })
   const { userPhoto, isLoading: isPhotoLoading } = useUserPhoto({ userId })
 
@@ -30,6 +36,8 @@ function GroupMemberThumbnail({ userId }: { userId: string }) {
         <Text fontWeight={600}>{user.name}</Text>
         <Text color='muted'>{user.email}</Text>
       </Pane>
+
+      {isOwner ? <CrownIcon color='warning' /> : null}
     </Pane>
   )
 }
@@ -45,7 +53,11 @@ export default function GroupNav() {
     <Pane display='flex' flexDirection='column' gap={16}>
       <Heading>{group.name}</Heading>
       {group.members.map((memberId) => (
-        <GroupMemberThumbnail key={memberId} userId={memberId} />
+        <GroupMemberThumbnail
+          key={memberId}
+          userId={memberId}
+          isOwner={memberId === user.id}
+        />
       ))}
     </Pane>
   )
