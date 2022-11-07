@@ -1,15 +1,14 @@
 import { FilePicker, Pane } from 'evergreen-ui'
 import { ref, uploadBytes } from 'firebase/storage'
 import { storage } from '../firebase'
-import User from '../types/users'
 
-export default function FileUploader({ user }: { user: User }) {
+export default function FileUploader({ id }: { id: string }) {
   const handleSelectFile = (files: FileList) => {
     if (files.length === 0) return
 
     const newFile = files[0]
 
-    const imageRef = ref(storage, `images/${user.id}`)
+    const imageRef = ref(storage, `images/${id}`)
     uploadBytes(imageRef, newFile)
   }
 
