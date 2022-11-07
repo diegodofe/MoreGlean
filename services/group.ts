@@ -5,6 +5,8 @@ import {
   DocumentData,
   DocumentReference,
   getDoc,
+  onSnapshot,
+  query,
 } from 'firebase/firestore'
 import db from '../firebase'
 import Group, { GroupData } from '../types/groups'
@@ -36,4 +38,16 @@ export async function getGroupById(groupId: string) {
   const group: Group = { id: docSnap.id, ...docSnap.data() } as unknown as Group
 
   return group
+}
+
+export function listenToGroups({ cb }: { cb: (newGroups: Group[]) => void }) {
+  const q = query(collection(db, 'groups'))
+
+  return onSnapshot(q, (querySnapshot) => {
+    const groups: Group[] = []
+    querySnapshot.forEach((docSnap) => {
+      groups.push({ id: docSnap.id, ...docSnap.data() } as unknown as Group)
+    })
+    cb(groups)
+  })
 }
