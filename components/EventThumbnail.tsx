@@ -1,14 +1,40 @@
 import { Rate } from 'antd'
+import { Button, Heading, Pane, Text } from 'evergreen-ui'
 import Image from 'next/image'
 import Event from '../types/events'
 
 export default function EventThumbnail({ event }: { event: Event }) {
+  const eventDate = event.date.toDate()
   return (
-    <div>
-      <Image src={event.image} alt={event.title} width={200} height={200} />
-      <Rate disabled defaultValue={2} />
-      <h2>Title: {event.title}</h2>
-      <h3>Amount of food is: {event.foodAmount}</h3>
-    </div>
+    <Pane display='flex' flexDirection='column' minWidth={100} maxWidth={400}>
+      <Image src={event.image} alt={event.title} width={300} height={200} />
+      <Heading>Farm Name: {event.title}</Heading>
+      <Pane display='flex' justifyContent='space-between'>
+        <Rate disabled defaultValue={3} />
+
+        <Button marginRight={16} appearance='primary' intent='none'>
+          REQUEST
+        </Button>
+      </Pane>
+      <Text>
+        Location: {event.location.latitude} N Longitude{' '}
+        {event.location.longitude} W Latitude
+      </Text>
+      <Text>
+        Date: {eventDate.getMonth()}/{eventDate.getDate()}/
+        {eventDate.getFullYear()}
+      </Text>
+      <Text>
+        Time: {eventDate.getHours()}:{eventDate.getMinutes()}
+      </Text>
+      <Text>Number of People Going: 33 </Text>
+      <Text>Food Capacity (kg): {event.foodAmount}</Text>
+      <br />
+      <Text>
+        Description: Come and help out this farm. Products to glean include
+        tomatoes, potatoes, squash, and cucumbers. Your help is greatly
+        appreciated. This farm is easily accessible. All gleaners all welcome!,
+      </Text>
+    </Pane>
   )
 }

@@ -5,18 +5,18 @@ import Event from '../../types/events'
 export default function EventsPage() {
   const fakeEvent: Event = {
     id: 'some-event-id',
-    title: 'Best Gleaning Job Out There',
-    date: new Timestamp(0, 0),
+    title: 'Happy Farm',
+    date: new Timestamp(1667763732, 0),
     image: 'https://picsum.photos/200',
     foodbankId: 'some-food-bank-id',
     foodAmount: 50,
-    location: new GeoPoint(1, 2),
+    location: new GeoPoint(45.5, 73.6),
     groupId: 'some-group-id',
   }
 
   return (
     <div>
-      <h1>Here is one event</h1>
+      <h1>Gleaning Event</h1>
       <EventThumbnail event={fakeEvent} />
     </div>
   )
