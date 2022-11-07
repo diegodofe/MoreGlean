@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { GoogleCircleFilled } from '@ant-design/icons'
 import 'antd/dist/antd.css'
 import {
   Button,
@@ -15,15 +16,19 @@ import {
   signOut,
   User as FirebaseUser,
 } from 'firebase/auth'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { AppProps } from 'next/app'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import FoodBankForm from '../components/FoodBankForm'
 import GroupNav from '../components/GroupNav'
 import SignUpForm from '../components/SignUpForm'
+import { BACKGROUND_BEIGE } from '../constants/colors'
 import UserContext from '../constants/context'
 import { GROUPS, HOME } from '../constants/routes'
 import { auth } from '../firebase'
+import mainLogo from '../public/android-chrome-512x512.png'
 import { getUserById } from '../services/users'
 import '../styles/globals.css'
 import User from '../types/users'
@@ -48,20 +53,63 @@ function LandingPage() {
   }
 
   return (
-    <Pane>
-      <Heading>Welcome</Heading>
-      <Button appearance='primary' onClick={handleLogin}>
-        Sign in with Google
-      </Button>
-      <Heading>Register as a food bank</Heading>
-      <Button
-        appearance='link'
-        onClick={() => setShowFoodBankForm(!ShowFoodBankForm)}
+    <Pane
+      background={BACKGROUND_BEIGE}
+      minHeight='100vh'
+      display='flex'
+      justifyContent='center'
+      minWidth='100vw'
+      padding={16}
+    >
+      <Pane
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        gap={16}
+        flexWrap='wrap'
       >
-        Register
-      </Button>
+        <Image src={mainLogo} alt='MoreGlean-Logo' width={300} height={300} />
+        <Pane
+          display='flex'
+          flexDirection='column'
+          width={400}
+          background='white'
+          alignItems='center'
+          padding={32}
+          borderRadius={8}
+          elevation={1}
+          gap={24}
+        >
+          <Heading size={900}>MoreGlean</Heading>
+          <Button
+            appearance='primary'
+            onClick={handleLogin}
+            width='100%'
+            iconBefore={<GoogleCircleFilled style={{ fontSize: 20 }} />}
+          >
+            Sign in with Google
+          </Button>
+          <Button
+            appearance='minimal'
+            width='100%'
+            onClick={() => setShowFoodBankForm(!ShowFoodBankForm)}
+          >
+            Register a foodbank
+          </Button>
 
-      {ShowFoodBankForm ? <FoodBankForm /> : null}
+          {ShowFoodBankForm ? (
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <FoodBankForm />
+              </motion.div>
+            </AnimatePresence>
+          ) : null}
+        </Pane>
+      </Pane>
     </Pane>
   )
 }
@@ -85,8 +133,28 @@ function AuthenticateUser({ children }: { children: React.ReactElement }) {
 
   if (isUserLoading) return <Spinner marginX='auto' />
 
-  if (!user)
-    return <SignUpForm currentFirebaseUser={firebaseUser} setUser={setUser} />
+  if (!user) {
+    return (
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          <Pane
+            display='flex'
+            minHeight='100vh'
+            alignItems='center'
+            justifyContent='center'
+            background={BACKGROUND_BEIGE}
+          >
+            <SignUpForm currentFirebaseUser={firebaseUser} setUser={setUser} />
+          </Pane>
+        </motion.div>
+      </AnimatePresence>
+    )
+  }
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>
 }
