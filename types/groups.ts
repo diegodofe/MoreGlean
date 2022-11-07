@@ -5,11 +5,7 @@ export default interface Group {
   name: string
   location: GeoPoint
   ownerId: string
-}
-
-export interface GroupMember {
-  id: string
-  name: string
+  members: string[]
 }
 
 export type GroupData = Omit<Group, 'id'>

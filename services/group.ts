@@ -2,15 +2,29 @@ import {
   addDoc,
   collection,
   doc,
+  DocumentData,
+  DocumentReference,
   getDoc,
-  getDocs,
-  query,
 } from 'firebase/firestore'
 import db from '../firebase'
-import Group, { GroupData, GroupMember } from '../types/groups'
+import Group, { GroupData } from '../types/groups'
 
 export async function createGroup(groupData: GroupData) {
-  await addDoc(collection(db, 'groups'), groupData)
+  const docRef = await addDoc(collection(db, 'groups'), groupData)
+
+  return docRef
+}
+
+export async function getGroupByDocRef(
+  groupRef: DocumentReference<DocumentData>
+) {
+  const docSnap = await getDoc(groupRef)
+
+  if (!docSnap.exists()) return undefined
+
+  const group: Group = { id: docSnap.id, ...docSnap.data() } as unknown as Group
+
+  return group
 }
 
 export async function getGroupById(groupId: string) {
@@ -22,25 +36,4 @@ export async function getGroupById(groupId: string) {
   const group: Group = { id: docSnap.id, ...docSnap.data() } as unknown as Group
 
   return group
-}
-
-export async function getGroupMembersByGroupId(groupId: string) {
-  const members: GroupMember[] = []
-
-  try {
-    const q = query(collection(db, `groups/${groupId}/members`))
-
-    const querySnapshot = await getDocs(q)
-
-    querySnapshot.forEach((memberDoc) =>
-      members.push({
-        id: memberDoc.id,
-        ...memberDoc.data(),
-      } as unknown as GroupMember)
-    )
-  } catch (error) {
-    console.log(error)
-  }
-
-  return members
 }

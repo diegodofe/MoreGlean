@@ -12,6 +12,7 @@ import {
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signOut,
   User as FirebaseUser,
 } from 'firebase/auth'
 import type { AppProps } from 'next/app'
@@ -96,11 +97,18 @@ function Layout({ children }: { children: React.ReactElement }) {
       name: 'Groups',
       location: GROUPS,
     },
-    {
-      name: 'Test',
-      location: '/test',
-    },
   ]
+
+  const handleLogout = async () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log('Signed out successfully')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 
   return (
     <Pane display='flex' minHeight='100vh'>
@@ -118,6 +126,9 @@ function Layout({ children }: { children: React.ReactElement }) {
               {item.name}
             </Tab>
           ))}
+          <Button appearance='primary' onClick={handleLogout}>
+            Sign out from Google
+          </Button>
         </Tablist>
         {/* <Avatar src = getPhotoFromFirebase={} */}
       </Pane>

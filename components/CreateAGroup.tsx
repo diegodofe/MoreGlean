@@ -1,46 +1,80 @@
-import { useState } from 'react'
+import { InputNumber } from 'antd'
+import {
+  Button,
+  Dialog,
+  Heading,
+  Pane,
+  TextInputField,
+  toaster,
+} from 'evergreen-ui'
+import { GeoPoint } from 'firebase/firestore'
+import { useContext, useState } from 'react'
+import UserContext from '../constants/context'
+import { createGroup, getGroupByDocRef } from '../services/group'
+import { updateUserById } from '../services/users'
+import { GroupData } from '../types/groups'
 
-import { Button, Checkbox, Pane, TextInputField } from 'evergreen-ui'
+export default function CreateGroupButton() {
+  const user = useContext(UserContext)
+  const [isCreateGroupShown, setIsCreateGroupShown] = useState(false)
+  const [groupName, setGroupName] = useState('')
+  const [long, setLong] = useState(0)
+  const [lat, setLat] = useState(0)
 
-export default function CreateAGroup() {
-  const [name, setName] = useState('')
-  const [location, setLocation] = useState('')
-  const [checked, setChecked] = useState(false)
-  const submitHandler = () => {
-    console.log({ name, location, checked })
+  const handleSubmit = async () => {
+    const groupData: GroupData = {
+      name: groupName,
+      location: new GeoPoint(lat, long),
+      ownerId: user.id,
+      members: [user.id],
+    }
+
+    const groupRef = await createGroup(groupData)
+
+    const newGroup = await getGroupByDocRef(groupRef)
+
+    if (newGroup?.id) {
+      await updateUserById(user.id, 'groupId', newGroup.id)
+      toaster.success('Group created')
+    } else {
+      toaster.warning('Error creating group')
+    }
   }
+
+  const handleSetLong = (amount: number | null) => {
+    if (amount) setLong(amount)
+  }
+
+  const handleSetLat = (amount: number | null) => {
+    if (amount) setLat(amount)
+  }
+
   return (
-    <Pane alignContent='center'>
-      <h1>Create a Group</h1>
+    <>
+      <Button onClick={() => setIsCreateGroupShown(true)}>Create Group</Button>
+      <Dialog
+        isShown={isCreateGroupShown}
+        title='Create a group'
+        onCloseComplete={() => setIsCreateGroupShown(false)}
+        confirmLabel='Create'
+        onConfirm={handleSubmit}
+      >
+        <Pane>
+          <TextInputField
+            required
+            label='Group name'
+            onChange={(e: any) => setGroupName(e.target.value)}
+            value={groupName}
+            placeholder='Enter a name for the group'
+          />
 
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='Group Name'
-        placeholder="Input a your new group's name"
-        onChange={(e: any) => setName(e.target.value)}
-        value={name}
-      />
+          <Heading size={400}>Longitude</Heading>
+          <InputNumber min={1} defaultValue={50} onChange={handleSetLong} />
 
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='location'
-        placeholder="Input a your new group's location"
-        onChange={(e: any) => setLocation(e.target.value)}
-        value={location}
-      />
-
-      <Checkbox
-        label='By clicking on sign-up, you agree to MoreGlean’s Terms and
-        Conditions of Use.'
-        checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
-      />
-
-      <Button appearance='primary' onClick={submitHandler}>
-        Submit
-      </Button>
-    </Pane>
+          <Heading size={400}>Latitude</Heading>
+          <InputNumber min={1} defaultValue={50} onChange={handleSetLat} />
+        </Pane>
+      </Dialog>
+    </>
   )
 }
