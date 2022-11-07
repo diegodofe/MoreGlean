@@ -1,11 +1,13 @@
 import { Rate } from 'antd'
-import { Button, Heading, Pane, Text } from 'evergreen-ui'
+import { Button, Heading, Pane } from 'evergreen-ui'
+import { GeoPoint } from 'firebase/firestore'
 import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../constants/context'
 import { getPhotoUrlByGroupId } from '../services/files'
 import Group from '../types/groups'
 import { UserRole } from '../types/users'
+import LocationMap from './LocationMap'
 
 export default function GroupThumbnail({ group }: { group: Group }) {
   const user = useContext(UserContext)
@@ -19,7 +21,7 @@ export default function GroupThumbnail({ group }: { group: Group }) {
     <Pane
       display='flex'
       flexDirection='column'
-      minWidth={100}
+      minWidth={400}
       maxWidth={400}
       background='#fffcf2'
       padding={32}
@@ -40,16 +42,17 @@ export default function GroupThumbnail({ group }: { group: Group }) {
           {user.role === UserRole.FARMER && <Rate />}
           {user.role === UserRole.GLEANER && (
             <Button marginRight={16} appearance='primary' intent='none'>
-              JOIN GROUP
+              Join Group
             </Button>
           )}
         </>
       </Pane>
 
-      <Text>
-        Location: {group.location.latitude} N Longitude{' '}
-        {group.location.longitude} W Latitude
-      </Text>
+      <LocationMap
+        location={
+          new GeoPoint(group.location.latitude, group.location.longitude)
+        }
+      />
     </Pane>
   )
 }

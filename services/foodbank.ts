@@ -4,6 +4,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   where,
 } from 'firebase/firestore'
@@ -55,5 +56,21 @@ export async function getAllFoodbanks() {
       ...userDoc.data(),
     } as unknown as Foodbank
     return bank
+  })
+}
+
+export function listenToFoodbanks({
+  cb,
+}: {
+  cb: (newFoodbanks: Foodbank[]) => void
+}) {
+  const q = query(collection(db, 'foodbanks'))
+
+  return onSnapshot(q, (querySnapshot) => {
+    const banks: Foodbank[] = []
+    querySnapshot.forEach((docSnap) =>
+      banks.push({ id: docSnap.id, ...docSnap.data() } as unknown as Foodbank)
+    )
+    cb(banks)
   })
 }
