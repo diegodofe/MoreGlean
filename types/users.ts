@@ -2,7 +2,6 @@ export default interface User {
   id: string
   name: string
   email: string
-  photo: string
   acceptedConditions: boolean
   groupId: string | undefined
   role: UserRole

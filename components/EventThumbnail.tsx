@@ -1,16 +1,20 @@
 import { Rate } from 'antd'
 import { Button, Heading, Pane, Text } from 'evergreen-ui'
 import Image from 'next/image'
+import { useContext, useEffect, useState } from 'react'
+import UserContext from '../constants/context'
+import { getPhotoUrlByEvent } from '../services/files'
 import Event from '../types/events'
-import User, { UserRole } from '../types/users'
+import { UserRole } from '../types/users'
 
-export default function EventThumbnail({
-  event,
-  user,
-}: {
-  event: Event
-  user: User
-}) {
+export default function EventThumbnail({ event }: { event: Event }) {
+  const user = useContext(UserContext)
+  const [eventImage, setEventImage] = useState<string>('')
+
+  useEffect(() => {
+    getPhotoUrlByEvent({ event }).then(setEventImage)
+  }, [event])
+
   const eventDate = event.date.toDate()
 
   return (
@@ -21,7 +25,7 @@ export default function EventThumbnail({
       maxWidth={400}
       style={{ color: '#90EE90' }}
     >
-      <Image src={event.image} alt={event.title} width={300} height={200} />
+      <Image src={eventImage} alt={event.title} width={300} height={200} />
       <Heading>Farm Name: {event.title}</Heading>
       <Pane display='flex' justifyContent='space-between'>
         <>

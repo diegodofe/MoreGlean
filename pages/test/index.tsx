@@ -30,7 +30,6 @@ export default function Create() {
     const eventData: EventData = {
       title: 'Event title',
       date: new Timestamp(2000000, 0),
-      image: 'https://picsum.photos/200',
       foodbankId: '',
       foodAmount: 0,
       location: new GeoPoint(10, 10),
@@ -55,7 +54,6 @@ export default function Create() {
       name: getRandomGroupName(),
       location: new GeoPoint(5, 5),
       rating: score,
-      photo: 'https://picsum.photos/200',
       ownerId: allUsers[0].id,
       members: groupMembers,
       memberCount: groupMembers.length,
