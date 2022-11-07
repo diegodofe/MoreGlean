@@ -25,7 +25,7 @@ export async function getPhotoUrlByEventId(eventId: string) {
 
 export async function getPhotoUrlByGroupId(groupId: string) {
   try {
-    const location = `images/events/${groupId}`
+    const location = `images/groups/${groupId}`
     const imageRef = ref(storage, location)
     const imageUrl = await getDownloadURL(imageRef)
     return imageUrl

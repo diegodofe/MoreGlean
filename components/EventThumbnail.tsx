@@ -1,11 +1,13 @@
 import { Rate } from 'antd'
 import { Button, Heading, Pane, Text } from 'evergreen-ui'
+import { GeoPoint } from 'firebase/firestore'
 import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../constants/context'
 import { getPhotoUrlByEventId } from '../services/files'
 import Event from '../types/events'
 import { UserRole } from '../types/users'
+import LocationMap from './LocationMap'
 
 export default function EventThumbnail({ event }: { event: Event }) {
   const user = useContext(UserContext)
@@ -42,16 +44,12 @@ export default function EventThumbnail({ event }: { event: Event }) {
           <Rate />
           {user.role === UserRole.GLEANER && (
             <Button marginRight={16} appearance='primary' intent='none'>
-              REQUEST
+              Request
             </Button>
           )}
         </>
       </Pane>
 
-      <Text>
-        Location: {event.location.latitude} N Longitude{' '}
-        {event.location.longitude} W Latitude
-      </Text>
       <Text>
         Date: {eventDate.getMonth()}/{eventDate.getDate()}/
         {eventDate.getFullYear()}
@@ -61,6 +59,12 @@ export default function EventThumbnail({ event }: { event: Event }) {
       </Text>
       <Text>Food Capacity (kg): {event.foodAmount}</Text>
       <Text>Description: {event.description}</Text>
+
+      <LocationMap
+        location={
+          new GeoPoint(event.location.latitude, event.location.longitude)
+        }
+      />
     </Pane>
   )
 }

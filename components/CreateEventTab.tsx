@@ -52,7 +52,9 @@ export default function CreateEventTab() {
   }
 
   const handleSubmit = async () => {
-    if (!date || !foodbankId) return
+    // if (!date || !foodbankId) return
+    // foodbankId is null, commented to let the event be created temporarily.
+    if (!date) return
     const eventDate = date.unix()
 
     const data: EventData = {
