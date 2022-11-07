@@ -22,3 +22,14 @@ export async function getPhotoUrlByEventId(eventId: string) {
     return ''
   }
 }
+
+export async function getPhotoUrlByGroupId(groupId: string) {
+  try {
+    const location = `images/events/${groupId}`
+    const imageRef = ref(storage, location)
+    const imageUrl = await getDownloadURL(imageRef)
+    return imageUrl
+  } catch (error) {
+    return ''
+  }
+}
