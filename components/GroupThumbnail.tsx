@@ -16,6 +16,7 @@ import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../constants/context'
 import { getPhotoUrlByGroupId } from '../services/files'
+import { updateGroupById } from '../services/group'
 import { updateUserById } from '../services/users'
 import Group from '../types/groups'
 import { UserRole } from '../types/users'
@@ -30,7 +31,9 @@ export default function GroupThumbnail({ group }: { group: Group }) {
 
   const handleJoinGroup = () => {
     updateUserById(user.id, 'groupId', group.id).then(() =>
-      toaster.success(`Joined ${group.name} `)
+      updateGroupById(group.id, 'members', [...group.members, user.id]).then(
+        () => toaster.success(`Joined ${group.name}`)
+      )
     )
   }
 

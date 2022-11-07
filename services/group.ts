@@ -7,6 +7,7 @@ import {
   getDoc,
   onSnapshot,
   query,
+  updateDoc,
 } from 'firebase/firestore'
 import db from '../firebase'
 import Group, { GroupData } from '../types/groups'
@@ -15,6 +16,18 @@ export async function createGroup(groupData: GroupData) {
   const docRef = await addDoc(collection(db, 'groups'), groupData)
 
   return docRef
+}
+
+export async function updateGroupById(
+  groupId: string,
+  field: string,
+  newData: any
+) {
+  const docRef = doc(db, 'groups', groupId)
+
+  await updateDoc(docRef, {
+    [field]: newData,
+  })
 }
 
 export async function getGroupByDocRef(
