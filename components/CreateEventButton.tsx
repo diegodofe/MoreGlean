@@ -24,9 +24,9 @@ export default function CreateEventButton() {
   const [foodAmount, setFoodAmount] = useState(0)
   const [date, setDate] = useState<DateValue>()
   const [isCreateEventShown, setIsCreateEventShown] = useState(false)
-
   const [file, setFile] = useState<File>()
-
+  const [long, setLong] = useState(0)
+  const [lat, setLat] = useState(0)
   // File upload
   const handleSelectFile = (files: FileList) => {
     if (files.length === 0) return
@@ -38,14 +38,14 @@ export default function CreateEventButton() {
 
   const handleSubmit = async () => {
     if (!date) return
-    const eventDate = date.seconds()
+    const eventDate = date.unix()
 
     const data: EventData = {
       title: eventTitle,
       date: new Timestamp(eventDate, 0),
       foodbankId: foodbank,
       foodAmount,
-      location: new GeoPoint(0, 0),
+      location: new GeoPoint(lat, long),
       groupId: undefined,
     }
 
@@ -62,6 +62,14 @@ export default function CreateEventButton() {
 
   const handleSetFoodAmount = (amount: number | null) => {
     if (amount) setFoodAmount(amount)
+  }
+
+  const handleSetLong = (amount: number | null) => {
+    if (amount) setLong(amount)
+  }
+
+  const handleSetLat = (amount: number | null) => {
+    if (amount) setLat(amount)
   }
 
   return (
@@ -96,6 +104,21 @@ export default function CreateEventButton() {
             <Button>{foodbank || 'Select name...'}</Button>
           </SelectMenu>
 
+          <Heading size={400}>Longitude</Heading>
+          <InputNumber
+            min={0}
+            defaultValue={50}
+            onChange={handleSetLong}
+            value={long}
+          />
+
+          <Heading size={400}>Latitude</Heading>
+          <InputNumber
+            min={0}
+            defaultValue={50}
+            onChange={handleSetLat}
+            value={lat}
+          />
           <Heading size={400}>Amount of food (kg)</Heading>
           <InputNumber
             min={1}
