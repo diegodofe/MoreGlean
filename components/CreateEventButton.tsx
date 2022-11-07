@@ -46,6 +46,7 @@ export default function CreateEventButton() {
       date: new Timestamp(eventDate, 0),
       foodbankId: foodbank,
       foodAmount,
+
       location: new GeoPoint(lat, long),
       groupId: undefined,
     }

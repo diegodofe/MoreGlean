@@ -24,6 +24,7 @@ import React, { useEffect, useState } from 'react'
 import FoodBankForm from '../components/FoodBankForm'
 import GroupNav from '../components/GroupNav'
 import SignUpForm from '../components/SignUpForm'
+import { BACKGROUND_BEIGE } from '../constants/colors'
 import UserContext from '../constants/context'
 import { GROUPS, HOME } from '../constants/routes'
 import { auth } from '../firebase'
@@ -53,7 +54,7 @@ function LandingPage() {
 
   return (
     <Pane
-      background='beige'
+      background={BACKGROUND_BEIGE}
       minHeight='100vh'
       display='flex'
       justifyContent='center'
@@ -132,8 +133,28 @@ function AuthenticateUser({ children }: { children: React.ReactElement }) {
 
   if (isUserLoading) return <Spinner marginX='auto' />
 
-  if (!user)
-    return <SignUpForm currentFirebaseUser={firebaseUser} setUser={setUser} />
+  if (!user) {
+    return (
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          <Pane
+            display='flex'
+            minHeight='100vh'
+            alignItems='center'
+            justifyContent='center'
+            background={BACKGROUND_BEIGE}
+          >
+            <SignUpForm currentFirebaseUser={firebaseUser} setUser={setUser} />
+          </Pane>
+        </motion.div>
+      </AnimatePresence>
+    )
+  }
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>
 }

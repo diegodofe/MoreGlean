@@ -5,7 +5,7 @@ import {
   Heading,
   Pane,
   RadioGroup,
-  TextInputField,
+  TextInput,
   toaster,
 } from 'evergreen-ui'
 import { User as FirebaseUser } from 'firebase/auth'
@@ -73,40 +73,55 @@ export default function SignUpForm({
   const disableSubmit = !file || !name || !checked
 
   return (
-    <Pane padding='2%' width='50%' height='100%' background='tint2'>
+    <Pane
+      background='white'
+      padding={32}
+      borderRadius={8}
+      elevation={1}
+      display='flex'
+      flexDirection='column'
+      gap={16}
+    >
       <Heading size={800} marginBottom={16}>
         Complete Your Profile
       </Heading>
-      <RadioGroup
-        label='Role'
-        size={16}
-        value={role}
-        options={[
-          { label: 'Farmer', value: UserRole.FARMER },
-          { label: 'Gleaner', value: UserRole.GLEANER },
-        ]}
-        onChange={(event) => setRole(event.target.value as UserRole)}
+
+      <Pane>
+        <Heading size={200} marginBottom={8}>
+          Full name
+        </Heading>
+        <TextInput
+          width='100%'
+          onChange={(e: any) => setName(e.target.value)}
+          value={name}
+          placeholder='Enter your full name.'
+        />
+      </Pane>
+
+      <Pane>
+        <Heading size={200}>Role</Heading>
+        <RadioGroup
+          value={role}
+          options={[
+            { label: 'Farmer', value: UserRole.FARMER },
+            { label: 'Gleaner', value: UserRole.GLEANER },
+          ]}
+          onChange={(event) => setRole(event.target.value as UserRole)}
+        />
+      </Pane>
+
+      <Heading size={200}>Profile picture</Heading>
+      <FilePicker
+        multiple
+        onChange={handleSelectFile}
+        placeholder='Place your profile picture here!'
       />
-      <TextInputField
-        required
-        inputWidth='50%'
-        label='Full Name'
-        onChange={(e: any) => setName(e.target.value)}
-        value={name}
-        placeholder='Enter your full name.'
-      />
+
       <Checkbox
         label='By clicking on sign-up, you agree to MoreGlean’s Terms and
         Conditions of Use.'
         checked={checked}
         onChange={(e) => setChecked(e.target.checked)}
-      />
-
-      <FilePicker
-        multiple
-        width='60%'
-        onChange={handleSelectFile}
-        placeholder='Place your profile picture here!'
       />
 
       <Button
