@@ -9,6 +9,7 @@ import {
 } from 'evergreen-ui'
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
+import { MAX_LAT, MAX_LONG, MIN_LAT, MIN_LONG } from '../constants/location'
 import { createFoodbank } from '../services/foodbank'
 import { RangeValue } from '../types/dates'
 import { FoodbankData } from '../types/foodbanks'
@@ -83,7 +84,8 @@ export default function FoodBankForm() {
 
       <Heading size={400}>Longitude</Heading>
       <InputNumber
-        min={0}
+        min={MIN_LONG}
+        max={MAX_LONG}
         defaultValue={50}
         onChange={handleSetLong}
         value={long}
@@ -91,7 +93,8 @@ export default function FoodBankForm() {
 
       <Heading size={400}>Latitude</Heading>
       <InputNumber
-        min={0}
+        min={MIN_LAT}
+        max={MAX_LAT}
         defaultValue={50}
         onChange={handleSetLat}
         value={lat}
