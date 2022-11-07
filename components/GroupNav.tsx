@@ -1,5 +1,5 @@
 import { Skeleton } from 'antd'
-import { Avatar, Pane, Text } from 'evergreen-ui'
+import { Avatar, Heading, Pane, Text } from 'evergreen-ui'
 import { useContext } from 'react'
 import UserContext from '../constants/context'
 import useGroup from '../hooks/useGroup'
@@ -25,7 +25,7 @@ function GroupMemberThumbnail({ userId }: { userId: string }) {
 
   return (
     <Pane display='flex' gap={8} alignItems='center'>
-      <Avatar src={userPhoto} name={user.name} />
+      <Avatar src={userPhoto} name={user.name} size={48} />
       <Pane display='flex' flexDirection='column' gap={8}>
         <Text>{user.name}</Text>
       </Pane>
@@ -41,7 +41,8 @@ export default function GroupNav() {
   if (!group) return <Pane>Join a group!</Pane>
 
   return (
-    <Pane>
+    <Pane display='flex' flexDirection='column' gap={16}>
+      <Heading>{group.name}</Heading>
       {group.members.map((memberId) => (
         <GroupMemberThumbnail key={memberId} userId={memberId} />
       ))}

@@ -189,7 +189,6 @@ function Layout({ children }: { children: React.ReactElement }) {
   return (
     <Pane display='flex' minHeight='100vh'>
       {/** NAV BAR */}
-
       <Pane borderRight>
         <Pane padding={16} position='sticky' top={0} alignSelf='flex-start'>
           <Pane marginBottom={32}>
@@ -230,7 +229,7 @@ function Layout({ children }: { children: React.ReactElement }) {
 
             <Popover
               placement='right'
-              title='Account setting'
+              title='Account settings'
               content={<Button onClick={handleLogout}>Log out</Button>}
               trigger='click'
             >
@@ -251,13 +250,14 @@ function Layout({ children }: { children: React.ReactElement }) {
           </Tablist>
         </Pane>
       </Pane>
+
       {/** PAGE CONTENT */}
       <Pane flex={1} display='flex' justifyContent='center'>
         {children}
       </Pane>
 
-      {/** NAV BAR */}
-      <Pane borderLeft>
+      {/** GROUP NAV BAR */}
+      <Pane padding={16} position='sticky' top={0} alignSelf='flex-start'>
         <GroupNav />
       </Pane>
     </Pane>
