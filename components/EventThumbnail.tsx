@@ -9,6 +9,7 @@ import {
   Paragraph,
   PeopleIcon,
   SendMessageIcon,
+  Strong,
   Text,
   TimeIcon,
   toaster,
@@ -18,6 +19,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../constants/context'
+import useFoodbank from '../hooks/useFoodbank'
 import useGroup from '../hooks/useGroup'
 import { getPhotoUrlByEventId } from '../services/files'
 import Event from '../types/events'
@@ -28,10 +30,11 @@ import LocationMap from './LocationMap'
 
 export default function EventThumbnail({ event }: { event: Event }) {
   const user = useContext(UserContext)
+  const { group } = useGroup({ groupId: event.groupId })
+  const { bank } = useFoodbank({ foodbankId: event.foodbankId })
+
   const [eventImage, setEventImage] = useState<string>('')
   const [viewMap, setViewMap] = useState(false)
-
-  const { group } = useGroup({ groupId: event.groupId })
 
   const handleSendInterest = () => {
     // Send interest
@@ -140,6 +143,10 @@ export default function EventThumbnail({ event }: { event: Event }) {
         </Pane>
 
         <Paragraph>{event.description}</Paragraph>
+
+        <Text color='muted'>
+          Partnered with <Strong>{bank?.name}</Strong>
+        </Text>
       </Pane>
     </Pane>
   )
