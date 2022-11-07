@@ -1,54 +1,73 @@
 import {
   Button,
   Checkbox,
+  Heading,
   Pane,
   RadioGroup,
   TextInputField,
+  toaster,
 } from 'evergreen-ui'
+import { User as FirebaseUser } from 'firebase/auth'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { createUser, getUserById } from '../services/users'
+import User, { UserData, UserRole } from '../types/users'
 
-export default function SignUpForm() {
+export default function SignUpForm({
+  currentFirebaseUser,
+  setUser,
+}: {
+  currentFirebaseUser: FirebaseUser
+  setUser: (user: User) => void
+}) {
+  const router = useRouter()
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
   const [checked, setChecked] = useState(false)
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState(UserRole.GLEANER)
 
-  const submitHandler = () => {
-    if (name === '') {
-      console.log('Write Something!')
+  const submitHandler = async () => {
+    const userData: UserData = {
+      name,
+      photo: 'https://picsum.photos/200',
+      email: currentFirebaseUser.email || '@gmail.com',
+      acceptedConditions: checked,
+      role,
     }
-    console.log({ name, email, checked, role })
+
+    await createUser(currentFirebaseUser.uid, userData).then(() =>
+      router.push('/test')
+    )
+
+    const user = await getUserById(currentFirebaseUser.uid)
+
+    if (!user) {
+      toaster.warning('Error signing up')
+      return
+    }
+
+    setUser(user)
   }
 
   return (
     <Pane padding='2%' width='80%' height='100%'>
-      <h1>Complete Your Profile</h1>
+      <Heading>Complete Your Profile</Heading>
       <RadioGroup
         label='Role'
         size={16}
         value={role}
         options={[
-          { label: 'Farmer', value: 'farmer' },
-          { label: 'Gleaner', value: 'gleaner' },
+          { label: 'Farmer', value: UserRole.FARMER },
+          { label: 'Gleaner', value: UserRole.GLEANER },
         ]}
-        onChange={(event) => setRole(event.target.value)}
+        onChange={(event) => setRole(event.target.value as UserRole)}
       />
-
       <TextInputField
         required
         inputWidth='40%'
         label='Full Name'
         onChange={(e: any) => setName(e.target.value)}
         value={name}
-        placeholder='Enter you full name.'
-      />
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='Email'
-        onChange={(e: any) => setEmail(e.target.value)}
-        value={email}
-        placeholder='Enter your email.'
+        placeholder='Enter your full name.'
       />
       <Checkbox
         label='By clicking on sign-up, you agree to MoreGlean’s Terms and

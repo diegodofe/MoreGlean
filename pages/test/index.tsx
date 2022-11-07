@@ -1,33 +1,29 @@
 import { Button, Heading, Pane } from 'evergreen-ui'
+import { signOut } from 'firebase/auth'
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 import {
-  getRandomFirstName,
   getRandomFoodbankName,
   getRandomGroupName,
-  getRandomLastName,
-  getRandomRole,
 } from '../../constants/fakeData'
+import { auth } from '../../firebase'
 import { createEvent } from '../../services/event'
 import { createFoodbank } from '../../services/foodbank'
 import { createGroup } from '../../services/group'
-import { createUser, getAllUsers } from '../../services/users'
+import { getAllUsers } from '../../services/users'
 import { EventData } from '../../types/events'
 import { FoodbankData } from '../../types/foodbanks'
 import { GroupData } from '../../types/groups'
-import { UserData } from '../../types/users'
 
 export default function Create() {
-  const handleCreateUser = async () => {
-    const fullName = `${getRandomFirstName()} ${getRandomLastName()}`
-    const userData: UserData = {
-      name: fullName,
-      photo: 'https://picsum.photos/200',
-      email: `${fullName}@gmail.com`,
-      acceptedConditions: false,
-      role: getRandomRole(),
-    }
-
-    await createUser(userData)
+  const handleLogout = async () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log('Signed out successfully')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   const handleCreateEvent = async () => {
@@ -93,8 +89,8 @@ export default function Create() {
       <Heading>Create some data</Heading>
 
       <Pane display='flex' gap={8}>
-        <Button appearance='link' onClick={handleCreateUser}>
-          Create a user
+        <Button appearance='primary' onClick={handleLogout}>
+          Sign out from Google
         </Button>
         <Button appearance='link' onClick={handleCreateEvent}>
           Create an event

@@ -1,10 +1,10 @@
-import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
 import { getDownloadURL, ref } from 'firebase/storage'
 import db, { storage } from '../firebase'
 import User, { UserData } from '../types/users'
 
-export async function createUser(userData: UserData) {
-  await addDoc(collection(db, 'users'), userData)
+export async function createUser(id: string, userData: UserData) {
+  await setDoc(doc(db, 'users', id), userData)
 }
 
 export async function getAllUsers() {
