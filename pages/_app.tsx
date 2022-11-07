@@ -19,6 +19,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import SignUpForm from '../components/SignUpForm'
 import UserContext from '../constants/context'
+import { GROUPS, HOME } from '../constants/routes'
 import { auth } from '../firebase'
 import { getUserById } from '../services/users'
 import '../styles/globals.css'
@@ -34,7 +35,7 @@ function LandingPage() {
         const uid = result?.user?.uid
         if (!uid) return
         const userInFirestore = await getUserById(uid)
-        if (userInFirestore) router.push('/events')
+        if (userInFirestore) router.push('/')
       })
       .catch((error) => {
         console.error('Error message', error)
@@ -71,7 +72,8 @@ function AuthenticateUser({ children }: { children: React.ReactElement }) {
 
   if (isUserLoading) return <Spinner />
 
-  if (!user) return <SignUpForm />
+  if (!user)
+    return <SignUpForm currentFirebaseUser={firebaseUser} setUser={setUser} />
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>
 }
@@ -86,24 +88,16 @@ function Layout({ children }: { children: React.ReactElement }) {
 
   const navItems: NavItem[] = [
     {
-      name: 'Events',
-      location: '/events',
+      name: 'Home',
+      location: HOME,
     },
     {
-      name: 'Create',
-      location: '/create',
+      name: 'Groups',
+      location: GROUPS,
     },
     {
-      name: 'Register',
-      location: '/register',
-    },
-    {
-      name: 'Sign up',
-      location: '/signup',
-    },
-    {
-      name: 'Users',
-      location: '/users',
+      name: 'Test',
+      location: '/test',
     },
   ]
 
