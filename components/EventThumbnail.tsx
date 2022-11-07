@@ -25,7 +25,7 @@ export default function EventThumbnail({
       <Heading>Farm Name: {event.title}</Heading>
       <Pane display='flex' justifyContent='space-between'>
         <>
-          <Rate disabled defaultValue={3} />
+          <Rate />
           {user.role === UserRole.GLEANER && (
             <Button marginRight={16} appearance='primary' intent='none'>
               REQUEST
