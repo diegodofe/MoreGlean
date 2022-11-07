@@ -12,12 +12,14 @@ import {
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signOut,
   User as FirebaseUser,
 } from 'firebase/auth'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import FoodBankForm from '../components/FoodBankForm'
+import GroupNav from '../components/GroupNav'
 import SignUpForm from '../components/SignUpForm'
 import UserContext from '../constants/context'
 import { GROUPS, HOME } from '../constants/routes'
@@ -81,7 +83,7 @@ function AuthenticateUser({ children }: { children: React.ReactElement }) {
 
   if (!firebaseUser) return <LandingPage />
 
-  if (isUserLoading) return <Spinner />
+  if (isUserLoading) return <Spinner marginX='auto' />
 
   if (!user)
     return <SignUpForm currentFirebaseUser={firebaseUser} setUser={setUser} />
@@ -106,11 +108,18 @@ function Layout({ children }: { children: React.ReactElement }) {
       name: 'Groups',
       location: GROUPS,
     },
-    {
-      name: 'Test',
-      location: '/test',
-    },
   ]
+
+  const handleLogout = async () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log('Signed out successfully')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 
   return (
     <Pane display='flex' minHeight='100vh'>
@@ -128,6 +137,9 @@ function Layout({ children }: { children: React.ReactElement }) {
               {item.name}
             </Tab>
           ))}
+          <Button appearance='primary' onClick={handleLogout}>
+            Sign out from Google
+          </Button>
         </Tablist>
         {/* <Avatar src = getPhotoFromFirebase={} */}
       </Pane>
@@ -136,7 +148,9 @@ function Layout({ children }: { children: React.ReactElement }) {
       <Pane flex={1}>{children}</Pane>
 
       {/** NAV BAR */}
-      <Pane borderLeft>people</Pane>
+      <Pane borderLeft>
+        <GroupNav />
+      </Pane>
     </Pane>
   )
 }

@@ -1,11 +1,9 @@
 import { getDownloadURL, ref } from 'firebase/storage'
 import { storage } from '../firebase'
-import Event from '../types/events'
-import User from '../types/users'
 
-export async function getPhotoUrlByUser({ user }: { user: User }) {
+export async function getPhotoUrlByUserId(userId: string) {
   try {
-    const location = `images/profiles/${user.id}`
+    const location = `images/profiles/${userId}`
     const imageRef = ref(storage, location)
     const imageUrl = await getDownloadURL(imageRef)
     return imageUrl
@@ -14,9 +12,9 @@ export async function getPhotoUrlByUser({ user }: { user: User }) {
   }
 }
 
-export async function getPhotoUrlByEvent({ event }: { event: Event }) {
+export async function getPhotoUrlByEventId(eventId: string) {
   try {
-    const location = `images/events/${event.id}`
+    const location = `images/events/${eventId}`
     const imageRef = ref(storage, location)
     const imageUrl = await getDownloadURL(imageRef)
     return imageUrl

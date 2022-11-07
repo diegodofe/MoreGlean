@@ -1,4 +1,13 @@
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  DocumentData,
+  DocumentReference,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore'
 import db from '../firebase'
 import User, { UserData } from '../types/users'
 
@@ -6,6 +15,28 @@ export async function createUser(id: string, userData: UserData) {
   await setDoc(doc(db, 'users', id), {
     ...userData,
     groupId: null, // Firestore cannot accept undefined for ommited values
+  })
+}
+
+export async function getUserByDocRef(docRef: DocumentReference<DocumentData>) {
+  const docSnap = await getDoc(docRef)
+
+  if (!docSnap.exists()) return undefined
+
+  const user: User = { id: docSnap.id, ...docSnap.data() } as unknown as User
+
+  return user
+}
+
+export async function updateUserById(
+  userId: string,
+  field: string,
+  newData: any
+) {
+  const docRef = doc(db, 'users', userId)
+
+  await updateDoc(docRef, {
+    [field]: newData,
   })
 }
 
