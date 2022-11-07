@@ -73,8 +73,10 @@ export default function SignUpForm({
   const disableSubmit = !file || !name || !checked
 
   return (
-    <Pane padding='2%' width='80%' height='100%'>
-      <Heading>Complete Your Profile</Heading>
+    <Pane padding='2%' width='50%' height='100%' background='tint2'>
+      <Heading size={800} marginBottom={16}>
+        Complete Your Profile
+      </Heading>
       <RadioGroup
         label='Role'
         size={16}
@@ -87,7 +89,7 @@ export default function SignUpForm({
       />
       <TextInputField
         required
-        inputWidth='40%'
+        inputWidth='50%'
         label='Full Name'
         onChange={(e: any) => setName(e.target.value)}
         value={name}
@@ -102,9 +104,9 @@ export default function SignUpForm({
 
       <FilePicker
         multiple
-        width={250}
+        width='60%'
         onChange={handleSelectFile}
-        placeholder='Select the file here!'
+        placeholder='Place your profile picture here!'
       />
 
       <Button
