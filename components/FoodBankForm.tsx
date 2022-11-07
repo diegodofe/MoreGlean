@@ -1,22 +1,66 @@
-import { DatePicker, Form } from 'antd'
-
-import { Button, Checkbox, Pane, TextInputField } from 'evergreen-ui'
+import { DatePicker, Form, InputNumber } from 'antd'
+import {
+  Button,
+  Checkbox,
+  Heading,
+  Pane,
+  TextInputField,
+  toaster,
+} from 'evergreen-ui'
+import { GeoPoint, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
-
+import { createFoodbank } from '../services/foodbank'
 import { RangeValue } from '../types/dates'
+import { FoodbankData } from '../types/foodbanks'
 
 export default function FoodBankForm() {
   const { RangePicker } = DatePicker
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [location, setLocation] = useState('')
-  const [foodAmt, setFoodAmt] = useState('')
+  const [foodAmt, setFoodAmt] = useState(1)
   const [checked, setChecked] = useState(false)
   const [date, setDate] = useState<RangeValue>(null)
-  const [distance, setDist] = useState('')
+  const [distance, setDist] = useState(1)
+  const [long, setLong] = useState(0)
+  const [lat, setLat] = useState(0)
+
   const submitHandler = () => {
-    console.log({ email, name, location, foodAmt, checked, date, distance })
+    if (!date || !date[0] || !date[1]) return
+
+    const startDateSeconds = date[0].unix()
+    const endDateSeconds = date[1].unix()
+
+    const foodBankData: FoodbankData = {
+      name,
+      email,
+      location: new GeoPoint(lat, long),
+      pickupCapacity: foodAmt,
+      maxDistance: distance,
+      startDate: new Timestamp(startDateSeconds, 0),
+      endDate: new Timestamp(endDateSeconds, 0),
+    }
+
+    createFoodbank(foodBankData).then(() =>
+      toaster.success('Your source is now sending data')
+    )
   }
+
+  const handleSetFoodAmount = (amount: number | null) => {
+    if (amount) setFoodAmt(amount)
+  }
+
+  const handleDistance = (amount: number | null) => {
+    if (amount) setDist(amount)
+  }
+
+  const handleSetLong = (amount: number | null) => {
+    if (amount) setLong(amount)
+  }
+
+  const handleSetLat = (amount: number | null) => {
+    if (amount) setLat(amount)
+  }
+
   return (
     <Pane padding='2%' width='80%' height='100%'>
       <h1>Register as a Food Bank</h1>
@@ -37,32 +81,43 @@ export default function FoodBankForm() {
         placeholder='Enter your email.'
       />
 
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='Location'
-        onChange={(e: any) => setLocation(e.target.value)}
-        value={location}
-        placeholder='Enter your location.'
+      <Heading size={400}>Longitude</Heading>
+      <InputNumber
+        min={0}
+        defaultValue={50}
+        onChange={handleSetLong}
+        value={long}
       />
 
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='Max distance(km)'
-        onChange={(e: any) => setDist(e.target.value)}
-        value={distance}
-        placeholder='Enter the max distance you are willing to travel.'
+      <Heading size={400}>Latitude</Heading>
+      <InputNumber
+        min={0}
+        defaultValue={50}
+        onChange={handleSetLat}
+        value={lat}
       />
+      <Pane>
+        Distance:
+        <InputNumber
+          required
+          style={{ width: 100 }}
+          onChange={handleDistance}
+          value={distance}
+          placeholder='Enter the max distance you are willing to travel.'
+        />
+      </Pane>
 
-      <TextInputField
-        required
-        inputWidth='40%'
-        label='Max Food Capacity(kg)'
-        onChange={(e: any) => setFoodAmt(e.target.value)}
-        value={foodAmt}
-        placeholder='Enter the max food amount your bank can handle.'
-      />
+      <Pane>
+        Food Capacity:
+        <InputNumber
+          min={1}
+          required
+          style={{ width: 100 }}
+          onChange={handleSetFoodAmount}
+          value={foodAmt}
+          placeholder='Enter the max food amount your bank can handle.'
+        />
+      </Pane>
 
       <Form.Item
         name='availabilities'

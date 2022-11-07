@@ -18,6 +18,7 @@ import {
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import FoodBankForm from '../components/FoodBankForm'
 import GroupNav from '../components/GroupNav'
 import SignUpForm from '../components/SignUpForm'
 import UserContext from '../constants/context'
@@ -28,6 +29,7 @@ import '../styles/globals.css'
 import User from '../types/users'
 
 function LandingPage() {
+  const [ShowFoodBankForm, setShowFoodBankForm] = useState(false)
   const router = useRouter()
   const googleAuth = new GoogleAuthProvider()
 
@@ -51,6 +53,15 @@ function LandingPage() {
       <Button appearance='primary' onClick={handleLogin}>
         Sign in with Google
       </Button>
+      <Heading>Register as a food bank</Heading>
+      <Button
+        appearance='link'
+        onClick={() => setShowFoodBankForm(!ShowFoodBankForm)}
+      >
+        Register
+      </Button>
+
+      {ShowFoodBankForm ? <FoodBankForm /> : null}
     </Pane>
   )
 }
