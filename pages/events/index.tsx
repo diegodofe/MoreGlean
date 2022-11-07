@@ -19,7 +19,7 @@ export default function EventsPage() {
     id: '123',
     name: 'john doe',
     email: 'yahoo@yahoo.com',
-    photo: 'hi',
+    photo: 'https://picsum.photos/200',
     acceptedConditions: true,
     role: UserRole.GLEANER,
   }
