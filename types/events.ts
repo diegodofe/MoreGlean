@@ -4,6 +4,7 @@ export default interface Event {
   id: string
   title: string
   date: Timestamp
+  image: string
   foodbankId: string
   foodAmount: number
   location: GeoPoint
