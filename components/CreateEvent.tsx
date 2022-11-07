@@ -1,6 +1,8 @@
 import { DatePicker, Space } from 'antd'
-import { Button, Pane, TextInputField } from 'evergreen-ui'
+import { Button, FilePicker, Pane, TextInputField, toaster } from 'evergreen-ui'
+import { ref, uploadBytes } from 'firebase/storage'
 import { useState } from 'react'
+import { storage } from '../firebase'
 
 type RangeValue = moment.Moment | null
 
@@ -9,8 +11,28 @@ export default function CreateEvent() {
   const [location, setLocation] = useState('')
   const [amount, setCapacity] = useState('')
   const [date, setDate] = useState<RangeValue>(null)
+  const [file, setFile] = useState<File>()
+
+  const handleSelectFile = (files: FileList) => {
+    if (files.length === 0) return
+
+    const newFile = files[0]
+
+    setFile(newFile)
+  }
 
   const submitHandler = () => {
+    if (!file) {
+      toaster.warning('Event picture missing')
+      return
+    }
+
+    // Update below line to event Id after storing event in Firestore.
+    // const userFileLocation = `images/events/${event.id}`
+    const userFileLocation = `images/events/testEventPhoto`
+    const imageRef = ref(storage, userFileLocation)
+    uploadBytes(imageRef, file)
+
     console.log({ farm, location, amount, date })
   }
   return (
@@ -42,12 +64,19 @@ export default function CreateEvent() {
           <DatePicker
             showTime={{ format: 'HH:mm' }}
             format='YYYY-MM-DD HH:mm'
-            // onChange={onChange}
             onChange={setDate}
             value={date}
           />
         </Space>
       </Pane>
+
+      <FilePicker
+        multiple
+        width={250}
+        onChange={handleSelectFile}
+        placeholder='Select the file here!'
+      />
+
       <Button appearance='primary' onClick={submitHandler}>
         Submit
       </Button>
