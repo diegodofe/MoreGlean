@@ -47,7 +47,7 @@ export default function GroupNav() {
 
   const { group } = useGroup({ groupId: user.groupId })
 
-  if (!group) return <Pane>Join a group!</Pane>
+  if (!group) return null
 
   return (
     <Pane display='flex' flexDirection='column' gap={16}>
