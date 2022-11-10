@@ -14,11 +14,11 @@
 
 <p align="center">
   Built during  <strong>Morgan Stanley's Code to Give Hackathon!</strong>
-</p> 
+</p>
 
 <p align="center">
   <a href="https://www.moreglean.com/">Visit MoreGlean.com!</a> 
-</p> 
+</p>
 
 <h2 id="table-of-contents">Table of contents</h2>
 
@@ -42,12 +42,14 @@
 <img width="1436" alt="Screen Shot 2022-11-09 at 2 21 05 PM" src="https://user-images.githubusercontent.com/63019625/200927736-d428236d-3b79-4f24-bb02-88229053f315.png">
 
 <a href="https://www.moreglean.com/">MoreGlean.com</a> is a fun and refreshing platform that allows:
+
 - Farmers to create posts about gleaning opportunies, declare their availability, and welcome gleaners to their farms.
 - Gleaners to look for gleaning activities, join gleaning groups, and send requests to matching farmers.
 
 <h2 id="architecture">MoreGlean Architecture</h2>
 
 <a href="https://www.moreglean.com/">MoreGlean.com</a> is built on a list of modern technologies such as:
+
 - [A custom ESLint config (based on Airbnb's config) - for tightened up code.](https://github.com/iamturns/eslint-config-airbnb-typescript)
 - [A ready-to-use folder structure (based on React's recommendations) - for clean file organization.](https://reactjs.org/docs/faq-structure.html)
 - [Husky - for improved Git commits.](https://github.com/t3-oss/create-t3-app)
@@ -60,7 +62,7 @@
 
 <h3>Production</h3>
 
-Visit our production app at <a href="https://www.moreglean.com/">MoreGlean.com!</a> 
+Visit our production app at <a href="https://www.moreglean.com/">MoreGlean.com!</a>
 
 <h3>Local</h3>
 
@@ -72,4 +74,4 @@ npm i
 
 <h2 id="contributors">Contributors</h2>
 
-We're a mixture of Software Engineering and Computer Science students from McGill Univeristy, Univeristy of Waterloo, and Concordia Univeristy! 
+We're a mixture of Software Engineering and Computer Science students from McGill University, University of Waterloo, and Concordia University!
