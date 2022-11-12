@@ -1,8 +1,8 @@
-<p align="center">
+<div align="center">
   <img src="https://user-images.githubusercontent.com/63019625/200922955-514109d7-d88f-47fa-8b7c-079d27bf2307.png" width="130" alt="MoreGlean-Logo" />
   <img src="https://user-images.githubusercontent.com/63019625/200926149-07ef75e6-d7b7-4b64-acff-d04669db624e.png" width="400" alt="MorganStanley_Logo" />
   <img src="https://user-images.githubusercontent.com/63019625/200926402-c9610605-943d-4744-930d-590665d37954.png" width="130" alt="EarthDayCanada_Logo" />
-</p>
+</div>
 
 <h1 align="center">
   MoreGlean
@@ -19,6 +19,10 @@
 <p align="center">
   <a href="https://www.moreglean.com/">Visit MoreGlean.com!</a> 
 </p>
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/63019625/201494271-8ca1eeb1-dbe7-438b-8bd1-42082c0e27d9.gif" alt="MoreGlean-Logo" />
+</div>
 
 <h2 id="table-of-contents">Table of contents</h2>
 
