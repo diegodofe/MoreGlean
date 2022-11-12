@@ -1,5 +1,12 @@
 import { Skeleton } from 'antd'
-import { Avatar, CrownIcon, Heading, Pane, Text } from 'evergreen-ui'
+import {
+  Avatar,
+  CrownIcon,
+  Heading,
+  Pane,
+  PeopleIcon,
+  Text,
+} from 'evergreen-ui'
 import { useContext } from 'react'
 import UserContext from '../constants/context'
 import useGroup from '../hooks/useGroup'
@@ -51,7 +58,10 @@ export default function GroupNav() {
 
   return (
     <Pane display='flex' flexDirection='column' gap={16}>
-      <Heading>{group.name}</Heading>
+      <Pane display='flex' gap={8}>
+        <Heading>{group.name}</Heading>
+        <PeopleIcon />
+      </Pane>
       {group.members.map((memberId) => (
         <GroupMemberThumbnail
           key={memberId}

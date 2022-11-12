@@ -77,7 +77,6 @@ function LandingPage() {
         gap={16}
         flexWrap='wrap'
       >
-        <Image src={mainLogo} alt='MoreGlean-Logo' width={300} height={300} />
         <Pane
           display='flex'
           flexDirection='column'
@@ -89,8 +88,10 @@ function LandingPage() {
           elevation={1}
           gap={24}
         >
+          <Image src={mainLogo} alt='MoreGlean-Logo' width={150} height={150} />
           <Heading size={900}>MoreGlean</Heading>
           <Button
+            size='large'
             appearance='primary'
             onClick={handleLogin}
             width='100%'
