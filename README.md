@@ -9,7 +9,7 @@
 </h1>
 
 <p align="center">
-  A platform for <strong>Earth Day Canada</strong> to help people, municipalities and organizations reduce their environmental impact. 
+  A platform for <strong>Earth Day Canada</strong> to help people, municipalities, and organizations reduce their environmental impact. 
 </p>
 
 <p align="center">
