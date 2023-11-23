@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.moreglean.com/">Visit MoreGlean.com!</a> 
+  <a href="https://more-glean.vercel.app/">Visit MoreGlean.com!</a> 
 </p>
 
 <div align="center">
@@ -45,14 +45,14 @@
 
 <img width="1436" alt="Screen Shot 2022-11-09 at 2 21 05 PM" src="https://user-images.githubusercontent.com/63019625/200927736-d428236d-3b79-4f24-bb02-88229053f315.png">
 
-<a href="https://www.moreglean.com/">MoreGlean.com</a> is a fun and refreshing platform that allows:
+<a href="https://more-glean.vercel.app/">MoreGlean.com</a> is a fun and refreshing platform that allows:
 
 - Farmers to create posts about gleaning opportunies, declare their availability, and welcome gleaners to their farms.
 - Gleaners to look for gleaning activities, join gleaning groups, and send requests to matching farmers.
 
 <h2 id="architecture">MoreGlean Architecture</h2>
 
-<a href="https://www.moreglean.com/">MoreGlean.com</a> is built on a list of modern technologies such as:
+<a href="https://more-glean.vercel.app/">MoreGlean.com</a> is built on a list of modern technologies such as:
 
 - [A custom ESLint config (based on Airbnb's config) - for tightened up code.](https://github.com/iamturns/eslint-config-airbnb-typescript)
 - [A ready-to-use folder structure (based on React's recommendations) - for clean file organization.](https://reactjs.org/docs/faq-structure.html)
@@ -66,7 +66,7 @@
 
 <h3>Production</h3>
 
-Visit our production app at <a href="https://www.moreglean.com/">MoreGlean.com!</a>
+Visit our production app at <a href="https://more-glean.vercel.app/">MoreGlean.com!</a>
 
 <h3>Local</h3>
 
